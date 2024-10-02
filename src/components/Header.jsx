@@ -55,12 +55,12 @@ const Header = () => {
           <div className='hidden md:flex space-x-4'>
             {/* Signup/Login Button */}
             <button className='flex flex-col items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
-              Signup/Login{/* Signup/Login Icon */}
+              Signup/Login
             </button>
 
             {/* Post Button */}
             <button className='flex flex-col items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
-              <FaPlus className='text-xl' /> {/* Post Icon */} Post
+              Post
             </button>
           </div>
         )}
