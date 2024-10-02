@@ -26,7 +26,7 @@ const Header = () => {
         {!isSearchFocused && (
           <>
             {/* Logo */}
-            <Link to="/" className='font-bold text-sm sm:text-xl'>
+            <Link to="/" className='font-bold text-sm sm:text-3xl'>
               <span className='text-slate-800'>RentlyGo</span>
             </Link>
 
