@@ -45,7 +45,7 @@ const Header = () => {
               onBlur={handleSearchBlur}
             />
           </div>
-          <button type='submit' className='flex items-center bg-slate-600 hover:bg-slate-700 h-10 px-4'>
+          <button type='submit' className='flex items-center bg-slate-600 rounded-r-lg hover:bg-slate-700 h-10 px-4'>
             <FaSearch className='text-white h-full' aria-label='Search' />
           </button>
         </form>
@@ -54,12 +54,12 @@ const Header = () => {
         {!isSearchFocused && (
           <div className='hidden md:flex space-x-4'>
             {/* Signup/Login Button */}
-            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
                  Signup/Login
             </button>
 
          {/* Post Button */}
-            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
                 Post
             </button>
           </div>
@@ -68,10 +68,10 @@ const Header = () => {
         {/* Mobile: Login and Post Buttons */}
         {!isSearchFocused && (
           <div className='flex md:hidden space-x-2'>
-            <button className='bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+            <button className='bg-slate-600 text-white px-4 h-10 rounded-lg  hover:bg-slate-700'>
             <FaUserPlus className='text-xl' /> {/* Signup/Login Icon */}
             </button>
-            <button className='bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+            <button className='bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
             <FaPlus className='text-xl' /> {/* Post Icon */}
             </button>
           </div>
