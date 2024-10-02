@@ -26,13 +26,14 @@ const Header = () => {
         {!isSearchFocused && (
           <>
             {/* Logo */}
-            <Link to="/" className='font-bold text-sm sm:text-xl'>
-              <span className='text-slate-800'>RentlyGo</span>
+            <Link to="/" className='font-bold text-sm sm:text-2xl'>
+              <span className='text-slate-900'>RentlyGo</span>
             </Link>
-
             {/* Search and Post Button in mobile */}
             <div className="flex md:hidden space-x-2">
-             <div></div>
+             <div>
+
+             </div>
               <button className='bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700'>
                 Login
               </button>
@@ -64,15 +65,23 @@ const Header = () => {
                   onBlur={handleSearchBlur}
                 />
               </div>
+              <div>
+              <button 
+            type='submit' 
+            className='flex items-center bg-slate-600  hover:bg-slate-700 h-10 px-4' 
+          >
+            <FaSearch className='text-white h-full' aria-label='Search' />
+          </button>
+              </div>
         </form>
 
         {/* Login and Post Buttons in Desktop */}
         {!isSearchFocused && (
           <div className='hidden md:flex space-x-2'>
-            <button className='bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700'>
+            <button className='bg-slate-600 text-white px-4 py-2  hover:bg-slate-700'>
               Login
             </button>
-            <button className='bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700'>
+            <button className='bg-slate-600 text-white px-4 py-2  hover:bg-slate-700'>
               Post
             </button>
           </div>

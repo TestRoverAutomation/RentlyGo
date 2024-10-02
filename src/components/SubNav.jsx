@@ -53,7 +53,8 @@ const SubNav = () => {
         <div className="flex space-x-4">
           {categories.map((category) => (
             <div key={category.name} className="relative group">
-              <button className="focus:outline-none text-slate-800 hover:text-slate-600">
+              <button className="focus:outline-none font-semibold
+              text-sm  text-slate-800 hover:text-slate-600">
                 {category.name}
               </button>
               <div className="absolute left-0 z-10 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg">
