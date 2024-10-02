@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import { FaSearch, FaMapMarkedAlt, FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; 
+import { FaSearch, FaMapMarkedAlt, FaUserPlus, FaSignInAlt, FaPlus } from 'react-icons/fa'; // Import icons
 
 const Header = () => {
-  const [isSearchFocused, setIsSearchFocused] = useState(false); // State to track if search is focused
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to toggle mobile menu
+  const [isSearchFocused, setIsSearchFocused] = useState(false); 
 
   const handleSearchFocus = () => {
     setIsSearchFocused(true);
@@ -14,34 +13,15 @@ const Header = () => {
     setIsSearchFocused(false);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
   return (
     <header className='bg-cyan-400 shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
 
-        {/* Logo, Login, and Post Buttons */}
+        {/* Logo */}
         {!isSearchFocused && (
-          <>
-            {/* Logo */}
-            <Link to="/" className='font-bold text-sm sm:text-3xl'>
-              <span className='text-slate-900'>RentlyGo</span>
-            </Link>
-            {/* Search and Post Button in mobile */}
-            <div className="flex md:hidden space-x-2">
-             <div>
-
-             </div>
-              <button className='bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700'>
-                Login
-              </button>
-              <button className='bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700'>
-                Post
-              </button>
-            </div>
-          </>
+          <Link to="/" className='font-bold text-sm sm:text-3xl'>
+            <span className='text-slate-900'>RentlyGo</span>
+          </Link>
         )}
 
         {/* Search Form */}
@@ -54,35 +34,45 @@ const Header = () => {
             onFocus={handleSearchFocus}
             onBlur={handleSearchBlur}
           />
-              <div className='relative '>
-                <FaMapMarkedAlt className='absolute left-3 top-2.5 text-slate-600' aria-label='Map Icon' />
-                <input
-                  type='text'
-                  placeholder='Add postcode or location'
-                  className='bg-transparent focus:outline-none w-full border border-slate-400 pl-10 p-2'
-                  aria-label='Add postcode or location'
-                  onFocus={handleSearchFocus}
-                  onBlur={handleSearchBlur}
-                />
-              </div>
-              <div>
-              <button 
-            type='submit' 
-            className='flex items-center bg-slate-600  hover:bg-slate-700 h-10 px-4' 
-          >
+          <div className='relative'>
+            <FaMapMarkedAlt className='absolute left-3 top-2.5 text-slate-600' aria-label='Map Icon' />
+            <input
+              type='text'
+              placeholder='Add postcode or location'
+              className='bg-transparent focus:outline-none w-full border border-slate-400 pl-10 p-2'
+              aria-label='Add postcode or location'
+              onFocus={handleSearchFocus}
+              onBlur={handleSearchBlur}
+            />
+          </div>
+          <button type='submit' className='flex items-center bg-slate-600 hover:bg-slate-700 h-10 px-4'>
             <FaSearch className='text-white h-full' aria-label='Search' />
           </button>
-              </div>
         </form>
 
-        {/* Login and Post Buttons in Desktop */}
+        {/* Desktop: Combined Signup/Login and Post Buttons */}
         {!isSearchFocused && (
-          <div className='hidden md:flex space-x-2'>
-            <button className='bg-slate-600 text-white px-4 py-2  hover:bg-slate-700'>
-              Login
+          <div className='hidden md:flex space-x-4'>
+            {/* Signup/Login Button */}
+            <button className='flex flex-col items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+              Signup/Login{/* Signup/Login Icon */}
             </button>
-            <button className='bg-slate-600 text-white px-4 py-2  hover:bg-slate-700'>
-              Post
+
+            {/* Post Button */}
+            <button className='flex flex-col items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+              <FaPlus className='text-xl' /> {/* Post Icon */} Post
+            </button>
+          </div>
+        )}
+
+        {/* Mobile: Login and Post Buttons */}
+        {!isSearchFocused && (
+          <div className='flex md:hidden space-x-2'>
+            <button className='bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+            <FaUserPlus className='text-xl' /> {/* Signup/Login Icon */}
+            </button>
+            <button className='bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+            <FaPlus className='text-xl' /> {/* Post Icon */}
             </button>
           </div>
         )}
