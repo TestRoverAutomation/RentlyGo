@@ -19,8 +19,8 @@ const Header = () => {
 
         {/* Logo */}
         {!isSearchFocused && (
-          <Link to="/" className='font-bold text-sm sm:text-3xl'>
-            <span className='text-slate-900'>RentlyGo</span>
+          <Link to="/" className='font-bold font-sans text-sm sm:text-3xl'>
+            <span className='text-slate-700'>RentlyGo</span>
           </Link>
         )}
 
@@ -53,25 +53,25 @@ const Header = () => {
         {/* Desktop: Combined Signup/Login and Post Buttons */}
         {!isSearchFocused && (
           <div className='hidden md:flex space-x-4'>
-            {/* Signup/Login Button */}
-            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
-                 Signup/Login
-            </button>
+           {/* Signup/Login Button */}
+            <Link to="/login" className='flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
+                Signup/Login
+            </Link>
 
          {/* Post Button */}
-            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
+            <Link to="/listing" className='flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
                 Post
-            </button>
+            </Link>
           </div>
         )}
 
         {/* Mobile: Login and Post Buttons */}
         {!isSearchFocused && (
           <div className='flex md:hidden space-x-2'>
-            <button className='bg-slate-600 text-white px-4 h-10 rounded-lg  hover:bg-slate-700'>
+            <button className='bg-slate-600 text-white px-4 h-10 rounded-lg  hover:bg-slate-700' aria-label='Signup/Login'>
             <FaUserPlus className='text-xl' /> {/* Signup/Login Icon */}
             </button>
-            <button className='bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700'>
+            <button className='bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700' aria-label='Post'>
             <FaPlus className='text-xl' /> {/* Post Icon */}
             </button>
           </div>
