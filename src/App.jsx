@@ -96,7 +96,7 @@ const App = () => {
     <Route path="/camcorders" element={<Camcorder/>}/>
     <Route path="/studio-equipments" element={<Studio/>}/>
     <Route path="/sound-system" element={<SoundSystem/>}/>
-    <Route path="/praty-lightings" element={<Lightings/>}/>
+    <Route path="/party-lightings" element={<Lightings/>}/>
     <Route path="/instruments" element={<Instruments/>}/>
     <Route path="/game-consoles" element={<GameConsole/>}/>
     <Route path="/projectors" element={<Projector/>}/>
