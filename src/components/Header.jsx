@@ -39,7 +39,7 @@ const Header = () => {
             <input
               type='text'
               placeholder='Add postcode or location'
-              className='bg-transparent focus:outline-none w-full border border-slate-400 pl-10 p-2'
+              className='bg-transparent focus:outline-none w-full border  border-slate-400 pl-10 p-2'
               aria-label='Add postcode or location'
               onFocus={handleSearchFocus}
               onBlur={handleSearchBlur}
@@ -54,13 +54,13 @@ const Header = () => {
         {!isSearchFocused && (
           <div className='hidden md:flex space-x-4'>
             {/* Signup/Login Button */}
-            <button className='flex flex-col items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
-              Signup/Login
+            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+                 Signup/Login
             </button>
 
-            {/* Post Button */}
-            <button className='flex flex-col items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
-              Post
+         {/* Post Button */}
+            <button className='flex justify-center items-center bg-slate-600 text-white px-4 h-10  hover:bg-slate-700'>
+                Post
             </button>
           </div>
         )}
