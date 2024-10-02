@@ -49,6 +49,7 @@ import Community from "./pages/miscellaneous/Community";
 import Jobs from "./pages/miscellaneous/Jobs";
 import Freebies from "./pages/miscellaneous/Freebies";
 import Services from "./pages/miscellaneous/Services";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -114,6 +115,7 @@ const App = () => {
     <Route path="/freebies" element={<Freebies/>}/>
 
    </Routes>
+   <Footer/>
    </BrowserRouter>
   )
 }
