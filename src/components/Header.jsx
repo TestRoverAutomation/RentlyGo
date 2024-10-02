@@ -53,19 +53,17 @@ const Header = () => {
             onFocus={handleSearchFocus}
             onBlur={handleSearchBlur}
           />
-          {isSearchFocused && (
-            <div className='absolute top-full mt-2 bg-white w-full p-2 rounded-lg shadow-lg'>
-              <div className='relative'>
+              <div className='relative '>
                 <FaMapMarkedAlt className='absolute left-3 top-2.5 text-slate-600' aria-label='Map Icon' />
                 <input
                   type='text'
                   placeholder='Add postcode or location'
                   className='bg-transparent focus:outline-none w-full border border-slate-400 pl-10 p-2'
                   aria-label='Add postcode or location'
+                  onFocus={handleSearchFocus}
+                  onBlur={handleSearchBlur}
                 />
               </div>
-            </div>
-          )}
         </form>
 
         {/* Login and Post Buttons in Desktop */}

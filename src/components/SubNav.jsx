@@ -33,7 +33,7 @@ const categories = [
   },
   {
     name: 'Miscellaneous',
-    subcategories: ['Events', 'Community', 'Jobs', 'Freebies'],
+    subcategories: ['Events', 'Community', 'Services', 'Jobs', 'Freebies'],
   },
 ];
 

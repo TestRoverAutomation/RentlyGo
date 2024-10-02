@@ -48,6 +48,7 @@ import Events from "./pages/miscellaneous/Events";
 import Community from "./pages/miscellaneous/Community";
 import Jobs from "./pages/miscellaneous/Jobs";
 import Freebies from "./pages/miscellaneous/Freebies";
+import Services from "./pages/miscellaneous/Services";
 
 const App = () => {
   return (
@@ -108,6 +109,7 @@ const App = () => {
 
     <Route path="/events" element={<Events/>}/>
     <Route path="/community" element={<Community/>}/>
+    <Route path="/services" element={<Services/>}/>
     <Route path="/jobs" element={<Jobs/>}/>
     <Route path="/freebies" element={<Freebies/>}/>
 
