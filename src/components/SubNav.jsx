@@ -3,18 +3,91 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSearch, FaMapMarkedAlt } from "react-icons/fa";
 
 const categories = [
-  // your categories remain unchanged
+  {
+    name: "Properties",
+    subcategories: ["Residential Rentals", "Commercial Rentals"],
+  },
+  {
+    name: "Clothing & Accessories",
+    subcategories: [
+      "Mens Wear",
+      "Womens Wear",
+      "Kids Wear",
+      "Shoes",
+      "Bags",
+      "Party Costumes",
+      "Accessories",
+    ],
+  },
+  {
+    name: "Electronics & Gadgets",
+    subcategories: [
+      "Cameras",
+      "Camcorders",
+      "Studio Equipments",
+      "Sound System",
+      "Party lightings",
+      "Instruments",
+      "Game Consoles",
+      "Projectors",
+      "Laptops",
+      "Mobile & Tab",
+    ],
+  },
+  {
+    name: "Outdoor & Adventure",
+    subcategories: [
+      "Party Decoration",
+      "Camping Gear",
+      "Marquee",
+      "Bouncy Castle",
+      "Garden Furniture",
+      "Bicycles",
+      "Boats",
+      "Barbecue-Grills",
+    ],
+  },
+  {
+    name: "Vehicles",
+    subcategories: [
+      "Cars",
+      "Van",
+      "Caravan",
+      "Motorbikes",
+      "Scooters",
+      "E-Bikes",
+    ],
+  },
+  {
+    name: "Tools & Equipment",
+    subcategories: ["Power Tools", "Builder tools", "Garden tools"],
+  },
+  {
+    name: "Home & Furniture",
+    subcategories: ["Furniture", "Kitchen Appliances"],
+  },
+  {
+    name: "Miscellaneous",
+    subcategories: ["Events", "Community", "Services", "Jobs", "Freebies"],
+  },
 ];
 
 const SubNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
 
+  // Toggle the entire burger menu
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Toggle subcategories under a specific category
   const toggleCategory = (category) =>
     setActiveCategory(activeCategory === category ? null : category);
 
-  const closeMenu = () => setIsMenuOpen(false);
+  // Close the menu after selecting a subcategory link
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    setActiveCategory(null); // Reset active category when closing the menu
+  };
 
   return (
     <nav className="bg-slate-300 shadow-md">
@@ -50,15 +123,16 @@ const SubNav = () => {
       {/* Mobile View with Burger Menu and Search Fields */}
       <div className="block md:hidden p-4">
         <div className="flex items-center justify-between">
+          {/* Burger Menu Button */}
           <button
             onClick={toggleMenu}
             className="text-slate-800 hover:text-slate-600 focus:outline-none"
           >
-            {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            {isMenuOpen ? <FaTimes size={38} /> : <FaBars size={38} />}
           </button>
 
           {/* Search and Postcode Fields */}
-          <form className="flex items-center space-x-2 ml-2">
+          <form className="flex items-center space-x-2 ml-2 flex-grow">
             <div className="flex items-center bg-slate-200 rounded-lg p-2 flex-grow">
               <FaSearch className="text-slate-600 mr-2" />
               <input
