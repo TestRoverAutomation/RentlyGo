@@ -42,7 +42,7 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <img
-          src="images\hero_images\RentlyGo2.jpeg" // Adjust the path as needed
+          src="/src/images/hero_images/RentlyGo2.jpeg" // Adjust the path as needed
           alt="Hero"
           className="w-full h-auto max-h-[500px] object-cover" // Changed to object-cover
         />
