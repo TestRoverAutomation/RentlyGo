@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const SoundSystem = () => {
-  return (
-    <div>SoundSystem</div>
-  )
-}
+  return <div>SoundSystem</div>;
+};
 
-export default SoundSystem
+export default SoundSystem;

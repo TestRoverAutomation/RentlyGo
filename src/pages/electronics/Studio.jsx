@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Studio = () => {
-  return (
-    <div>Studio</div>
-  )
-}
+  return <div>Studio</div>;
+};
 
-export default Studio
+export default Studio;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const EBikes = () => {
-  return (
-    <div>E-Bikes</div>
-  )
-}
+  return <div>E-Bikes</div>;
+};
 
 export default EBikes;

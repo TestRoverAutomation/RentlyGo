@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PartyCostumes = () => {
-  return (
-    <div>PartyCostumes</div>
-  )
-}
+  return <div>PartyCostumes</div>;
+};
 
-export default PartyCostumes
+export default PartyCostumes;

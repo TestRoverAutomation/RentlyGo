@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Camera = () => {
-  return (
-    <div>Camera</div>
-  )
-}
+  return <div>Camera</div>;
+};
 
-export default Camera
+export default Camera;

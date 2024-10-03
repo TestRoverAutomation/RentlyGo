@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Laptops = () => {
-  return (
-    <div>Laptops</div>
-  )
-}
+  return <div>Laptops</div>;
+};
 
-export default Laptops
+export default Laptops;

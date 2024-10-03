@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const GardenFurniture = () => {
-  return (
-    <div>GardenFurniture</div>
-  )
-}
+  return <div>GardenFurniture</div>;
+};
 
-export default GardenFurniture
+export default GardenFurniture;
