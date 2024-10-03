@@ -1,4 +1,5 @@
 import React from "react";
+import heroImage from '../images/hero_images'
 
 // Define the categories and their corresponding icons
 const categories = [
@@ -42,7 +43,7 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <img
-          src="/src/images/hero_images/RentlyGo2.jpeg" // Adjust the path as needed
+          src="../images/hero_images/RentlyGo2.jpeg" // Adjust the path as needed
           alt="Hero"
           className="w-full h-auto max-h-[500px] object-cover" // Changed to object-cover
         />
