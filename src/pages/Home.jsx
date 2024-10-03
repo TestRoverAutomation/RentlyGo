@@ -1,5 +1,5 @@
 import React from "react";
-import heroImage from '../images/hero_images'
+
 
 // Define the categories and their corresponding icons
 const categories = [
