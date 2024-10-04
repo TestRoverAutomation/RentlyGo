@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Bouncycastle = () => {
-  return (
-    <div>Bouncycastle</div>
-  )
-}
+  return <div>Bouncycastle</div>;
+};
 
-export default Bouncycastle
+export default Bouncycastle;

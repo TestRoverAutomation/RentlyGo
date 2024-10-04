@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Campaigngear = () => {
-  return (
-    <div>Campaigngear</div>
-  )
-}
+  return <div>Campaigngear</div>;
+};
 
-export default Campaigngear
+export default Campaigngear;

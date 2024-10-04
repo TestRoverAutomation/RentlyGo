@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const WomensWear = () => {
-  return (
-    <div>WomensWear</div>
-  )
-}
+  return <div>WomensWear</div>;
+};
 
-export default WomensWear
+export default WomensWear;

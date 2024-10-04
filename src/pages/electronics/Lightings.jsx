@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Lightings = () => {
-  return (
-    <div>Lightings</div>
-  )
-}
+  return <div>Lightings</div>;
+};
 
-export default Lightings
+export default Lightings;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const KidsWear = () => {
-  return (
-    <div>KidsWear</div>
-  )
-}
+  return <div>KidsWear</div>;
+};
 
-export default KidsWear
+export default KidsWear;

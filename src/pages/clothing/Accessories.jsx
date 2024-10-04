@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Accessories = () => {
-  return (
-    <div>Accessories</div>
-  )
-}
+  return <div>Accessories</div>;
+};
 
-export default Accessories
+export default Accessories;

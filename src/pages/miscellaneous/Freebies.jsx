@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Freebies = () => {
-  return (
-    <div>Freebies</div>
-  )
-}
+  return <div>Freebies</div>;
+};
 
-export default Freebies
+export default Freebies;

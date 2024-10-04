@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Projector = () => {
-  return (
-    <div>Projector</div>
-  )
-}
+  return <div>Projector</div>;
+};
 
-export default Projector
+export default Projector;

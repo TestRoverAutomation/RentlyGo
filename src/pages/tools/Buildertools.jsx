@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Buildertools = () => {
-  return (
-    <div>Buildertools</div>
-  )
-}
+  return <div>Buildertools</div>;
+};
 
-export default Buildertools
+export default Buildertools;

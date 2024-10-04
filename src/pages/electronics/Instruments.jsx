@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Instruments = () => {
-  return (
-    <div>Instruments</div>
-  )
-}
+  return <div>Instruments</div>;
+};
 
-export default Instruments
+export default Instruments;

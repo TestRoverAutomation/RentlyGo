@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Powertools = () => {
-  return (
-    <div>Powertools</div>
-  )
-}
+  return <div>Powertools</div>;
+};
 
-export default Powertools
+export default Powertools;
