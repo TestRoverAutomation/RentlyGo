@@ -19,16 +19,18 @@ const LoginSignup = () => {
           <button
             onClick={() => toggleForm(true)}
             className={`w-1/2 py-2 font-semibold ${
-              isLogin ? "text-cyan-400 border-b-2 border-cyan-400" : "text-gray-500"
+              isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"
             }`}
+            style={{ backgroundColor: isLogin ? "#e0f7fa" : "transparent" }} // Light cyan background for selected tab
           >
             Login
           </button>
           <button
             onClick={() => toggleForm(false)}
             className={`w-1/2 py-2 font-semibold ${
-              !isLogin ? "text-cyan-400 border-b-2 border-cyan-400" : "text-gray-500"
+              !isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"
             }`}
+            style={{ backgroundColor: !isLogin ? "#e0f7fa" : "transparent" }} // Light cyan background for selected tab
           >
             Sign Up
           </button>
@@ -40,7 +42,7 @@ const LoginSignup = () => {
           <p className="text-sm text-gray-600 mt-2">
             Sign in or Register to:
             <ul className="list-disc text-left ml-6 mt-2">
-              <li>Rent item from listed vendor</li>
+              <li>Rent items from listed vendors</li>
               <li>Send and receive messages</li>
               <li>Post and manage your ads</li>
               <li>Rate other users</li>
@@ -62,7 +64,7 @@ const LoginSignup = () => {
         <div className="flex justify-center gap-4 mb-4">
           <button
             type="button"
-            className="flex items-center justify-center w-full bg-cyan-400 shadow-md text-white py-2 rounded hover:bg-slate-600 transition duration-200"
+            className="flex items-center justify-center w-full bg-slate-600 shadow-md text-white py-2 rounded hover:bg-cyan-500 transition duration-200"
             aria-label={isLogin ? "Login with Facebook" : "Sign up with Facebook"}
           >
             <FaFacebookF className="mr-2" /> Facebook
@@ -70,7 +72,7 @@ const LoginSignup = () => {
 
           <button
             type="button"
-            className="flex items-center justify-center w-full bg-cyan-400 shadow-md text-white py-2 rounded hover:bg-slate-600 transition duration-200"
+            className="flex items-center justify-center w-full bg-slate-600 shadow-md text-white py-2 rounded hover:bg-cyan-500 transition duration-200"
             aria-label={isLogin ? "Login with Google" : "Sign up with Google"}
           >
             <FaGoogle className="mr-2" /> Google
