@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
@@ -52,16 +53,19 @@ import Services from "./pages/miscellaneous/Services";
 import Footer from "./components/Footer";
 
 const App = () => {
+  const [user, setUser] = useState(null); // Global user state
+
   return (
     <BrowserRouter>
-      <Header />
+      {/* Pass user and setUser to Header */}
+      <Header user={user} setUser={setUser} />
       <SubNav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listing" element={<Listing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser} />} /> {/* Pass setUser */}
         <Route path="/about" element={<About />} />
-        {/**Add sub category routes */}
+        {/** Add subcategory routes */}
         <Route path="/properties" element={<Properties />}></Route>
         <Route path="/residential-rentals" element={<ResidentailRental />} />
         <Route path="/commercial-rentals" element={<CommercialRental />} />
