@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['firebase/auth'], // Exclude firebase/auth from the build
+      external: ['firebase/app', 'firebase/auth'], // Exclude firebase/app and firebase/auth from the build
     },
   },
 });
