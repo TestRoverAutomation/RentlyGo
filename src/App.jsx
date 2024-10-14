@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { auth } from "./auth/firebase"; // Import your Firebase auth configuration
+import { onAuthStateChanged } from "firebase/auth";
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
 import Login from "./pages/Login";
@@ -50,18 +53,36 @@ import Jobs from "./pages/miscellaneous/Jobs";
 import Freebies from "./pages/miscellaneous/Freebies";
 import Services from "./pages/miscellaneous/Services";
 import Footer from "./components/Footer";
+import Ads from "./pages/manage/Ads";
 
 const App = () => {
+  const [user, setUser] = useState(null); // Global user state
+
+  // Monitor authentication state on page load
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // Set the authenticated user
+      } else {
+        setUser(null); // User is signed out
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup listener on unmount
+  }, []);
+
   return (
     <BrowserRouter>
-      <Header />
+      {/* Pass user and setUser to Header */}
+      <Header user={user} setUser={setUser} />
       <SubNav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listing" element={<Listing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser} />} /> {/* Pass setUser */}
+        <Route path="/manage-ads" element={<Ads />} />
         <Route path="/about" element={<About />} />
-        {/**Add sub category routes */}
+        {/** Add subcategory routes */}
         <Route path="/properties" element={<Properties />}></Route>
         <Route path="/residential-rentals" element={<ResidentailRental />} />
         <Route path="/commercial-rentals" element={<CommercialRental />} />

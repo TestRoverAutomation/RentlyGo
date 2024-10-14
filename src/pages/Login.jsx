@@ -1,42 +1,83 @@
-import React, { useState } from "react";
-import { FaFacebookF, FaGoogle } from "react-icons/fa"; // Import Facebook and Google icons
+import React, { useState, useEffect } from "react";
+import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { auth, googleProvider, facebookProvider } from "../auth/firebase";
+import { signInWithPopup, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { useNavigate } from "react-router-dom"; // For navigation
 
-const LoginSignup = () => {
-  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
+const LoginSignup = ({ setUser }) => {
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
-  // Toggle between Login and Signup
+  // Monitor auth state changes and set user
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); // Set the user in the parent component
+      } else {
+        setUser(null); // Reset user if no one is logged in
+      }
+    });
+
+    // Cleanup the subscription on component unmount
+    return () => unsubscribe();
+  }, [setUser]);
+
   const toggleForm = (loginState) => {
     setIsLogin(loginState);
   };
 
+  // Google Sign-In with Persistence
+  const handleGoogleSignIn = async () => {
+    try {
+      // Set persistence to local (keep user logged in after page refresh)
+      await setPersistence(auth, browserLocalPersistence);
+      
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      console.log("User signed in:", user);
+      setUser(user); // Set the user in the parent component
+      navigate("/manage-ads"); // Redirect to the home page
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+    }
+  };
+
+  // Facebook Sign-In with Persistence
+  const handleFacebookSignIn = async () => {
+    try {
+      // Set persistence to local (keep user logged in after page refresh)
+      await setPersistence(auth, browserLocalPersistence);
+
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+      console.log("User signed in:", user);
+      setUser(user); // Set the user in the parent component
+      navigate("/"); // Redirect to the home page
+    } catch (error) {
+      console.error("Error during Facebook sign-in:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      {/* Container for the form */}
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        
-        {/* Toggle Header at the Top */}
         <div className="flex justify-center mb-6 border-b border-gray-300 pb-4">
           <button
             onClick={() => toggleForm(true)}
-            className={`w-1/2 py-2 font-semibold ${
-              isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"
-            }`}
-            style={{ backgroundColor: isLogin ? "#e0f7fa" : "transparent" }} // Light cyan background for selected tab
+            className={`w-1/2 py-2 font-semibold ${isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"}`}
+            style={{ backgroundColor: isLogin ? "#e0f7fa" : "transparent" }}
           >
             Login
           </button>
           <button
             onClick={() => toggleForm(false)}
-            className={`w-1/2 py-2 font-semibold ${
-              !isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"
-            }`}
-            style={{ backgroundColor: !isLogin ? "#e0f7fa" : "transparent" }} // Light cyan background for selected tab
+            className={`w-1/2 py-2 font-semibold ${!isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"}`}
+            style={{ backgroundColor: !isLogin ? "#e0f7fa" : "transparent" }}
           >
             Sign Up
           </button>
         </div>
 
-        {/* Welcome Message */}
         <div className="text-center mb-6">
           <h2 className="text-xl font-semibold">Welcome to RentlyGo</h2>
           <p className="text-sm text-gray-600 mt-2">
@@ -52,28 +93,25 @@ const LoginSignup = () => {
           </p>
         </div>
 
-        {/* Partition Line */}
         <hr className="border-t border-gray-300 mb-6" />
 
-        {/* Form for Login or Signup */}
         <h2 className="text-2xl font-semibold text-center mb-6">
           {isLogin ? "Login to RentlyGo" : "Sign up for RentlyGo"}
         </h2>
 
-        {/* Social Login Buttons */}
         <div className="flex justify-center gap-4 mb-4">
           <button
             type="button"
+            onClick={handleFacebookSignIn}
             className="flex items-center justify-center w-full bg-slate-600 shadow-md text-white py-2 rounded hover:bg-cyan-500 transition duration-200"
-            aria-label={isLogin ? "Login with Facebook" : "Sign up with Facebook"}
           >
             <FaFacebookF className="mr-2" /> Facebook
           </button>
 
           <button
             type="button"
+            onClick={handleGoogleSignIn}
             className="flex items-center justify-center w-full bg-slate-600 shadow-md text-white py-2 rounded hover:bg-cyan-500 transition duration-200"
-            aria-label={isLogin ? "Login with Google" : "Sign up with Google"}
           >
             <FaGoogle className="mr-2" /> Google
           </button>

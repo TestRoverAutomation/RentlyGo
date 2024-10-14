@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSearch, FaMapMarkedAlt } from "react-icons/fa";
+import Header from "./Header";
 
 const categories = [
   {
@@ -69,7 +70,7 @@ const categories = [
   {
     name: "Miscellaneous",
     subcategories: ["Events", "Community", "Services", "Jobs", "Freebies"],
-  },
+  }
 ];
 
 const SubNav = () => {
