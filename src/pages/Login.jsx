@@ -1,20 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { auth, googleProvider, facebookProvider } from "../auth/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { useNavigate } from "react-router-dom"; // For navigation
 
 const LoginSignup = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
+
+  // Monitor auth state changes and set user
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); // Set the user in the parent component
+      } else {
+        setUser(null); // Reset user if no one is logged in
+      }
+    });
+
+    // Cleanup the subscription on component unmount
+    return () => unsubscribe();
+  }, [setUser]);
 
   const toggleForm = (loginState) => {
     setIsLogin(loginState);
   };
 
-  // Google Sign-In
+  // Google Sign-In with Persistence
   const handleGoogleSignIn = async () => {
     try {
+      // Set persistence to local (keep user logged in after page refresh)
+      await setPersistence(auth, browserLocalPersistence);
+      
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("User signed in:", user);
@@ -25,9 +42,12 @@ const LoginSignup = ({ setUser }) => {
     }
   };
 
-  // Facebook Sign-In
+  // Facebook Sign-In with Persistence
   const handleFacebookSignIn = async () => {
     try {
+      // Set persistence to local (keep user logged in after page refresh)
+      await setPersistence(auth, browserLocalPersistence);
+
       const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
       console.log("User signed in:", user);

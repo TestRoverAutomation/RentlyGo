@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { auth } from "./auth/firebase"; // Import your Firebase auth configuration
+import { onAuthStateChanged } from "firebase/auth";
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
 import Login from "./pages/Login";
@@ -54,6 +56,19 @@ import Footer from "./components/Footer";
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
+
+  // Monitor authentication state on page load
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // Set the authenticated user
+      } else {
+        setUser(null); // User is signed out
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup listener on unmount
+  }, []);
 
   return (
     <BrowserRouter>
