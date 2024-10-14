@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes, FaSearch, FaMapMarkedAlt } from "react-icons/fa";
-import Header from "./Header";
+import { FaBars, FaTimes, FaSearch, FaMapMarkedAlt, FaHome, FaTshirt, FaLaptop, FaCampground, FaCar, FaTools, FaCouch, FaBox } from "react-icons/fa"; // Import icons
 
 const categories = [
   {
     name: "Properties",
+    icon: <FaHome />, // Use an icon component
     subcategories: ["Residential Rentals", "Commercial Rentals"],
   },
   {
     name: "Clothing & Accessories",
+    icon: <FaTshirt />,
     subcategories: [
       "Mens Wear",
       "Womens Wear",
@@ -22,6 +23,7 @@ const categories = [
   },
   {
     name: "Electronics & Gadgets",
+    icon: <FaLaptop />,
     subcategories: [
       "Cameras",
       "Camcorders",
@@ -37,6 +39,7 @@ const categories = [
   },
   {
     name: "Outdoor & Adventure",
+    icon: <FaCampground />,
     subcategories: [
       "Party Decoration",
       "Camping Gear",
@@ -50,6 +53,7 @@ const categories = [
   },
   {
     name: "Vehicles",
+    icon: <FaCar />,
     subcategories: [
       "Cars",
       "Van",
@@ -61,14 +65,17 @@ const categories = [
   },
   {
     name: "Tools & Equipment",
+    icon: <FaTools />,
     subcategories: ["Power Tools", "Builder tools", "Garden tools"],
   },
   {
     name: "Home & Furniture",
+    icon: <FaCouch />,
     subcategories: ["Furniture", "Kitchen Appliances"],
   },
   {
     name: "Miscellaneous",
+    icon: <FaBox />,
     subcategories: ["Events", "Community", "Services", "Jobs", "Freebies"],
   }
 ];
@@ -97,19 +104,15 @@ const SubNav = () => {
         <div className="flex space-x-4">
           {categories.map((category) => (
             <div key={category.name} className="relative group">
-              <button className="focus:outline-none font-sans font-semibold text-sm text-slate-800 hover:text-slate-600">
-                {category.name}
+              <button className="focus:outline-none font-sans font-semibold text-sm text-slate-800 hover:text-slate-600 flex items-center">
+                {category.icon} {/* Display the icon here */}
+                <span className="ml-1">{category.name}</span> {/* Space between icon and name */}
               </button>
               <div className="absolute left-0 z-10 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg">
                 <ul>
                   {category.subcategories.map((subcategory) => (
-                    <li
-                      key={subcategory}
-                      className="py-1 hover:text-slate-600 cursor-pointer"
-                    >
-                      <Link
-                        to={`/${subcategory.toLowerCase().replace(/ /g, "-")}`}
-                      >
+                    <li key={subcategory} className="py-1 hover:text-slate-600 cursor-pointer">
+                      <Link to={`/${subcategory.toLowerCase().replace(/ /g, "-")}`}>
                         {subcategory}
                       </Link>
                     </li>
@@ -159,15 +162,13 @@ const SubNav = () => {
         {isMenuOpen && (
           <div className="bg-slate-200 mt-2 p-4 rounded-lg shadow-lg">
             {categories.map((category) => (
-              <div
-                key={category.name}
-                className="border-b border-slate-400 py-2"
-              >
+              <div key={category.name} className="border-b border-slate-400 py-2">
                 <button
-                  className="w-full text-left text-slate-800 hover:text-slate-600 focus:outline-none py-2 font-semibold flex justify-between items-center"
+                  className="w-full text-left text-slate-800 hover:text-slate-600 focus:outline-none py-2 font-semibold flex items-center justify-between"
                   onClick={() => toggleCategory(category.name)}
                 >
-                  {category.name}
+                  {category.icon} {/* Display the icon here */}
+                  <span className="ml-1">{category.name}</span> {/* Space between icon and name */}
                   <span className="text-slate-600">
                     {activeCategory === category.name ? "-" : "+"}
                   </span>
@@ -177,10 +178,7 @@ const SubNav = () => {
                 {activeCategory === category.name && (
                   <ul className="pl-4 mt-2 space-y-2">
                     {category.subcategories.map((subcategory) => (
-                      <li
-                        key={subcategory}
-                        className="py-1 hover:text-slate-600 cursor-pointer"
-                      >
+                      <li key={subcategory} className="py-1 hover:text-slate-600 cursor-pointer">
                         <Link
                           to={`/${subcategory.toLowerCase().replace(/ /g, "-")}`}
                           onClick={closeMenu}
