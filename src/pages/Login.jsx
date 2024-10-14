@@ -36,7 +36,7 @@ const LoginSignup = ({ setUser }) => {
       const user = result.user;
       console.log("User signed in:", user);
       setUser(user); // Set the user in the parent component
-      navigate("/"); // Redirect to the home page
+      navigate("/manage-ads"); // Redirect to the home page
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }

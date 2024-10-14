@@ -53,6 +53,7 @@ import Jobs from "./pages/miscellaneous/Jobs";
 import Freebies from "./pages/miscellaneous/Freebies";
 import Services from "./pages/miscellaneous/Services";
 import Footer from "./components/Footer";
+import Ads from "./pages/manage/Ads";
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
@@ -79,6 +80,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/listing" element={<Listing />} />
         <Route path="/login" element={<Login setUser={setUser} />} /> {/* Pass setUser */}
+        <Route path="/manage-ads" element={<Ads />} />
         <Route path="/about" element={<About />} />
         {/** Add subcategory routes */}
         <Route path="/properties" element={<Properties />}></Route>
