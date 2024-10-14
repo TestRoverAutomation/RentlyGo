@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-function Ads() {
+const Ads = ({ user }) => {
   return (
-    <div>Ads</div>
-  )
-}
+    <div>
+      <h2>Manage Ads</h2>
+      {user && (
+        <p>Welcome, {user.displayName || user.email}!</p>
+      )}
+      {/* Add ads management functionalities here */}
+    </div>
+  );
+};
 
-export default Ads
+export default Ads;

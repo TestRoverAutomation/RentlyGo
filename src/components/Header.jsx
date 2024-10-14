@@ -67,21 +67,16 @@ const Header = ({ user, setUser }) => {
             <FaSearch className="text-white h-full" aria-label="Search" />
           </button>
         </form>
+
         {!isSearchFocused && (
           <div className="hidden md:flex space-x-4">
-            {/* Display user's name and logout button if logged in, else show Signup/Login button */}
             {user ? (
-              <>
-                <span className="flex items-center text-slate-600 font-semibold">
-                  Welcome, {user.displayName || user.email}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700"
-                >
-                  Logout
-                </button>
-              </>
+              <button
+                onClick={handleLogout}
+                className="flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700"
+              >
+                Logout
+              </button>
             ) : (
               <Link
                 to="/login"
@@ -101,19 +96,13 @@ const Header = ({ user, setUser }) => {
 
         {!isSearchFocused && (
           <div className="flex md:hidden space-x-2">
-            {/* Display user's name and logout button if logged in, else show Signup/Login button */}
             {user ? (
-              <>
-                <span className="flex items-center text-slate-600 font-semibold">
-                  Welcome, {user.displayName || user.email}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700"
-                >
-                  Logout
-                </button>
-              </>
+              <button
+                onClick={handleLogout}
+                className="flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700"
+              >
+                Logout
+              </button>
             ) : (
               <Link
                 to="/login"

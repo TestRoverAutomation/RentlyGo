@@ -80,7 +80,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/listing" element={<Listing />} />
         <Route path="/login" element={<Login setUser={setUser} />} /> {/* Pass setUser */}
-        <Route path="/manage-ads" element={<Ads />} />
+        <Route path="/manage-ads" element={<Ads user={user} />} />
         <Route path="/about" element={<About />} />
         {/** Add subcategory routes */}
         <Route path="/properties" element={<Properties />}></Route>
