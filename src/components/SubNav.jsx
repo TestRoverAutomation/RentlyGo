@@ -164,12 +164,12 @@ const SubNav = () => {
             {categories.map((category) => (
               <div key={category.name} className="border-b border-slate-400 py-2">
                 <button
-                  className="w-full text-left text-slate-800 hover:text-slate-600 focus:outline-none py-2 font-semibold flex items-center justify-between"
+                  className="w-full text-left text-slate-800 hover:text-slate-600 focus:outline-none py-2 font-semibold flex items-center justify-start"
                   onClick={() => toggleCategory(category.name)}
                 >
                   {category.icon} {/* Display the icon here */}
-                  <span className="ml-1">{category.name}</span> {/* Space between icon and name */}
-                  <span className="text-slate-600">
+                  <span className="ml-2">{category.name}</span> {/* Space between icon and name */}
+                  <span className="ml-auto  text-slate-600">
                     {activeCategory === category.name ? "-" : "+"}
                   </span>
                 </button>
