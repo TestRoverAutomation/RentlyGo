@@ -1,75 +1,75 @@
 import React, { useState } from "react";
 
 const PostAd = () => {
-    const categories = [
-        {
-          name: "Properties",
-          subcategories: ["Residential Rentals", "Commercial Rentals"],
-        },
-        {
-          name: "Clothing & Accessories",
-          subcategories: [
-            "Mens Wear",
-            "Womens Wear",
-            "Kids Wear",
-            "Shoes",
-            "Bags",
-            "Party Costumes",
-            "Accessories",
-          ],
-        },
-        {
-          name: "Electronics & Gadgets",
-          subcategories: [
-            "Cameras",
-            "Camcorders",
-            "Studio Equipments",
-            "Sound System",
-            "Party lightings",
-            "Instruments",
-            "Game Consoles",
-            "Projectors",
-            "Laptops",
-            "Mobile & Tab",
-          ],
-        },
-        {
-          name: "Outdoor & Adventure",
-          subcategories: [
-            "Party Decoration",
-            "Camping Gear",
-            "Marquee",
-            "Bouncy Castle",
-            "Garden Furniture",
-            "Bicycles",
-            "Boats",
-            "Barbecue-Grills",
-          ],
-        },
-        {
-          name: "Vehicles",
-          subcategories: [
-            "Cars",
-            "Van",
-            "Caravan",
-            "Motorbikes",
-            "Scooters",
-            "E-Bikes",
-          ],
-        },
-        {
-          name: "Tools & Equipment",
-          subcategories: ["Power Tools", "Builder tools", "Garden tools"],
-        },
-        {
-          name: "Home & Furniture",
-          subcategories: ["Furniture", "Kitchen Appliances"],
-        },
-        {
-          name: "Miscellaneous",
-          subcategories: ["Events", "Community", "Services", "Jobs", "Freebies"],
-        }
-      ];
+  const categories = [
+    {
+      name: "Properties",
+      subcategories: ["Residential Rentals", "Commercial Rentals"],
+    },
+    {
+      name: "Clothing & Accessories",
+      subcategories: [
+        "Mens Wear",
+        "Womens Wear",
+        "Kids Wear",
+        "Shoes",
+        "Bags",
+        "Party Costumes",
+        "Accessories",
+      ],
+    },
+    {
+      name: "Electronics & Gadgets",
+      subcategories: [
+        "Cameras",
+        "Camcorders",
+        "Studio Equipments",
+        "Sound System",
+        "Party lightings",
+        "Instruments",
+        "Game Consoles",
+        "Projectors",
+        "Laptops",
+        "Mobile & Tab",
+      ],
+    },
+    {
+      name: "Outdoor & Adventure",
+      subcategories: [
+        "Party Decoration",
+        "Camping Gear",
+        "Marquee",
+        "Bouncy Castle",
+        "Garden Furniture",
+        "Bicycles",
+        "Boats",
+        "Barbecue-Grills",
+      ],
+    },
+    {
+      name: "Vehicles",
+      subcategories: [
+        "Cars",
+        "Van",
+        "Caravan",
+        "Motorbikes",
+        "Scooters",
+        "E-Bikes",
+      ],
+    },
+    {
+      name: "Tools & Equipment",
+      subcategories: ["Power Tools", "Builder tools", "Garden tools"],
+    },
+    {
+      name: "Home & Furniture",
+      subcategories: ["Furniture", "Kitchen Appliances"],
+    },
+    {
+      name: "Miscellaneous",
+      subcategories: ["Events", "Community", "Services", "Jobs", "Freebies"],
+    },
+  ];
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredCategories, setFilteredCategories] = useState([]);
@@ -84,7 +84,7 @@ const PostAd = () => {
         .map((category) => ({
           ...category,
           subcategories: category.subcategories.filter((subcategory) =>
-            subcategory.toLowerCase().includes(value.toLowerCase())
+            subcategory.toLowerCase().includes(value.toLowerCase()),
           ),
         }))
         .filter((category) => category.subcategories.length > 0);

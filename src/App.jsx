@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import SubNav from "./components/SubNav";
 import ResidentailRental from "./pages/properties/ResidentailRental";
 import CommercialRental from "./pages/properties/CommercialRental";
+import Clothing from "./pages/clothing/Clothing-Accessoiers";
 import MenWear from "./pages/clothing/MensWear";
 import WomensWear from "./pages/clothing/WomensWear";
 import KidsWear from "./pages/clothing/KidsWear";
@@ -17,17 +18,20 @@ import Shoes from "./pages/clothing/Shoes";
 import Bags from "./pages/clothing/Bags";
 import PartyCostumes from "./pages/clothing/PartyCostumes";
 import Accessories from "./pages/clothing/Accessories";
+import Tools_Equipments from "./pages/tools/Tools&Equipments";
 import Powertools from "./pages/tools/Powertools";
 import Buildertools from "./pages/tools/Buildertools";
 import Gardentools from "./pages/tools/Gardentools";
 import Partydecorations from "./pages/outdoors/Partydecorations";
 import Campaigngear from "./pages/outdoors/Campaigngear";
+import Outdoor_Advendure from "./pages/outdoors/Outdoor&Advendture";
 import Marquee from "./pages/outdoors/Marquee";
 import Bouncycastle from "./pages/outdoors/Bouncycastle";
 import GardenFurniture from "./pages/outdoors/GardenFurniture";
 import Bicycles from "./pages/outdoors/Bicycles";
 import Boats from "./pages/outdoors/Boats";
 import Barbecue from "./pages/outdoors/Barbecue";
+import Vehicles from "./pages/vehicles/Vehicles";
 import Cars from "./pages/vehicles/Cars";
 import Vans from "./pages/vehicles/Vans";
 import Caravans from "./pages/vehicles/Caravans";
@@ -35,6 +39,7 @@ import Motorbikes from "./pages/vehicles/Motorbikes";
 import Scooter from "./pages/vehicles/Scooter";
 import EBikes from "./pages/vehicles/EBikes";
 import Properties from "./pages/properties/Properties";
+import Electronics from "./pages/electronics/Electronics";
 import Camera from "./pages/electronics/Camera";
 import Camcorder from "./pages/electronics/Camcorder";
 import Studio from "./pages/electronics/Studio";
@@ -45,8 +50,10 @@ import GameConsole from "./pages/electronics/GameConsole";
 import Projector from "./pages/electronics/Projector";
 import Laptops from "./pages/electronics/Laptops";
 import Mobile from "./pages/electronics/Mobile";
+import HomeFurniture from "./pages/home-furniture/Home&Furniture";
 import Furniture from "./pages/home-furniture/Furniture";
 import KitchenApp from "./pages/home-furniture/KitchenApp";
+import Miscelleneous from "./pages/miscellaneous/Miscellaneous";
 import Events from "./pages/miscellaneous/Events";
 import Community from "./pages/miscellaneous/Community";
 import Jobs from "./pages/miscellaneous/Jobs";
@@ -79,61 +86,116 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listing" element={<Listing />} />
-        <Route path="/login" element={<Login setUser={setUser} />} /> {/* Pass setUser */}
+        <Route path="/login" element={<Login setUser={setUser} />} />{" "}
+        {/* Pass setUser */}
         <Route path="/manage-ads" element={<Ads user={user} />} />
         <Route path="/about" element={<About />} />
         {/** Add subcategory routes */}
         <Route path="/properties" element={<Properties />}></Route>
-        <Route path="/residential-rentals" element={<ResidentailRental />} />
-        <Route path="/commercial-rentals" element={<CommercialRental />} />
-
-        <Route path="/mens-wear" element={<MenWear />} />
-        <Route path="/womens-wear" element={<WomensWear />} />
-        <Route path="/kids-wear" element={<KidsWear />} />
-        <Route path="/shoes" element={<Shoes />} />
-        <Route path="/bags" element={<Bags />} />
-        <Route path="/party-costumes" element={<PartyCostumes />} />
-        <Route path="/accessories" element={<Accessories />} />
-
-        <Route path="/power-tools" element={<Powertools />} />
-        <Route path="/builder-tools" element={<Buildertools />} />
-        <Route path="/gardening" element={<Gardentools />} />
-
-        <Route path="/party-decoration" element={<Partydecorations />} />
-        <Route path="/camping-gear" element={<Campaigngear />} />
-        <Route path="/marquee" element={<Marquee />} />
-        <Route path="/bouncy-castle" element={<Bouncycastle />} />
-        <Route path="/garden-furniture" element={<GardenFurniture />} />
-        <Route path="/bicycles" element={<Bicycles />} />
-        <Route path="/boats" element={<Boats />} />
-        <Route path="/barbecue-grills" element={<Barbecue />} />
-
-        <Route path="/cars" element={<Cars />} />
-        <Route path="/van" element={<Vans />} />
-        <Route path="/caravan" element={<Caravans />} />
-        <Route path="/motorbikes" element={<Motorbikes />} />
-        <Route path="/scooters" element={<Scooter />} />
-        <Route path="/e-bikes" element={<EBikes />} />
-
-        <Route path="/cameras" element={<Camera />} />
-        <Route path="/camcorders" element={<Camcorder />} />
-        <Route path="/studio-equipments" element={<Studio />} />
-        <Route path="/sound-system" element={<SoundSystem />} />
-        <Route path="/party-lightings" element={<Lightings />} />
-        <Route path="/instruments" element={<Instruments />} />
-        <Route path="/game-consoles" element={<GameConsole />} />
-        <Route path="/projectors" element={<Projector />} />
-        <Route path="/laptops" element={<Laptops />} />
-        <Route path="/mobile-&-tab" element={<Mobile />} />
-
-        <Route path="/furniture" element={<Furniture />} />
-        <Route path="/kitchen-appliances" element={<KitchenApp />} />
-
-        <Route path="/events" element={<Events />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/freebies" element={<Freebies />} />
+        <Route
+          path="/properties/residential-rentals"
+          element={<ResidentailRental />}
+        />
+        <Route
+          path="/properties/commercial-rentals"
+          element={<CommercialRental />}
+        />
+        <Route path="/clothing-accessories" element={<Clothing />} />
+        <Route path="/clothing-accessories/mens-wear" element={<MenWear />} />
+        <Route
+          path="/clothing-accessories/womens-wear"
+          element={<WomensWear />}
+        />
+        <Route path="/clothing-accessories/kids-wear" element={<KidsWear />} />
+        <Route path="/clothing-accessories/shoes" element={<Shoes />} />
+        <Route path="/clothing-accessories/bags" element={<Bags />} />
+        <Route
+          path="/clothing-accessories/party-costumes"
+          element={<PartyCostumes />}
+        />
+        <Route
+          path="/clothing-accessories/accessories"
+          element={<Accessories />}
+        />
+        <Route path="/tools-equipments" element={<Tools_Equipments />} />
+        <Route path="/tools-equipments/power-tools" element={<Powertools />} />
+        <Route
+          path="/tools-equipments/builder-tools"
+          element={<Buildertools />}
+        />
+        <Route
+          path="/tools-equipments/garden-tools"
+          element={<Gardentools />}
+        />
+        <Route path="/outdoor-adventure" element={<Outdoor_Advendure />} />
+        <Route
+          path="/outdoor-adventure/party-decoration"
+          element={<Partydecorations />}
+        />
+        <Route
+          path="/outdoor-adventure/camping-gear"
+          element={<Campaigngear />}
+        />
+        <Route path="/outdoor-adventure/marquee" element={<Marquee />} />
+        <Route
+          path="/outdoor-adventure/bouncy-castle"
+          element={<Bouncycastle />}
+        />
+        <Route
+          path="/outdoor-adventure/garden-furniture"
+          element={<GardenFurniture />}
+        />
+        <Route path="/outdoor-adventure/bicycles" element={<Bicycles />} />
+        <Route path="/outdoor-adventure/boats" element={<Boats />} />
+        <Route
+          path="/outdoor-adventure/barbecue-grills"
+          element={<Barbecue />}
+        />
+        <Route path="/vehicles" element={<Vehicles />} />
+        <Route path="/vehicles/cars" element={<Cars />} />
+        <Route path="/vehicles/van" element={<Vans />} />
+        <Route path="/vehicles/caravan" element={<Caravans />} />
+        <Route path="/vehicles/motorbikes" element={<Motorbikes />} />
+        <Route path="/vehicles/scooters" element={<Scooter />} />
+        <Route path="/vehicles/e-bikes" element={<EBikes />} />
+        <Route path="/electronics-gadgets" element={<Electronics />} />
+        <Route path="/electronics-gadgets/cameras" element={<Camera />} />
+        <Route path="/electronics-gadgets/camcorders" element={<Camcorder />} />
+        <Route
+          path="/electronics-gadgets/studio-equipments"
+          element={<Studio />}
+        />
+        <Route
+          path="/electronics-gadgets/sound-system"
+          element={<SoundSystem />}
+        />
+        <Route
+          path="/electronics-gadgets/party-lightings"
+          element={<Lightings />}
+        />
+        <Route
+          path="/electronics-gadgets/instruments"
+          element={<Instruments />}
+        />
+        <Route
+          path="/electronics-gadgets/game-consoles"
+          element={<GameConsole />}
+        />
+        <Route path="/electronics-gadgets/projectors" element={<Projector />} />
+        <Route path="/electronics-gadgets/laptops" element={<Laptops />} />
+        <Route path="/electronics-gadgets/mobile-&-tab" element={<Mobile />} />
+        <Route path="/home-furniture" element={<HomeFurniture />} />
+        <Route path="/home-furniture/furniture" element={<Furniture />} />
+        <Route
+          path="/home-furniture/kitchen-appliances"
+          element={<KitchenApp />}
+        />
+        <Route path="miscellaneous" element={<Miscelleneous />} />
+        <Route path="/miscellaneous/events" element={<Events />} />
+        <Route path="/miscellaneous/community" element={<Community />} />
+        <Route path="/miscellaneous/services" element={<Services />} />
+        <Route path="/miscellaneous/jobs" element={<Jobs />} />
+        <Route path="/miscellaneous/freebies" element={<Freebies />} />
       </Routes>
       <Footer />
     </BrowserRouter>
