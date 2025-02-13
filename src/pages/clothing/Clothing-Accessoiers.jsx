@@ -1,7 +1,7 @@
 import React from "react";
 
 const Clothing = () => {
-  return <div></div>;
+  return <div>Clothing- Aceessoiers</div>;
 };
 
 export default Clothing;
