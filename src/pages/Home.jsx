@@ -61,7 +61,7 @@ const Home = () => {
       {/* Hero Slider */}
       <section className="relative overflow-hidden">
         <Slider {...sliderSettings}>
-          {[image1, image2, image3, image5, image4, image7].map(
+          {[image1, image2, image3, image6, image4, image7].map(
             (img, index) => (
               <div key={index}>
                 <img
