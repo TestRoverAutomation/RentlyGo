@@ -1,6 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import image from "../images/hero_images/RentlyGo2.jpeg";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import image1 from "../images/hero_images/RentlyGo2.jpeg";
+import image2 from "../images/hero_images/appartment.jpeg";
+import image3 from "../images/hero_images/bikes.jpeg";
+import image4 from "../images/hero_images/dress.jpeg";
+import image5 from "../images/hero_images/RentlyGoMan.jpeg";
+import image6 from "../images/hero_images/RentlyGoMan2.jpeg";
+import image7 from "../images/hero_images/RentlyGoWoman.jpeg";
 import {
   FaHome,
   FaTshirt,
@@ -11,6 +20,17 @@ import {
   FaCouch,
   FaBox,
 } from "react-icons/fa";
+
+const sliderSettings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  arrows: false,
+};
 
 const categories = [
   { name: "Properties", icon: <FaHome />, path: "/properties" },
@@ -38,13 +58,21 @@ const categories = [
 const Home = () => {
   return (
     <div className="bg-gray-100">
-      {/* Hero Section */}
+      {/* Hero Slider */}
       <section className="relative overflow-hidden">
-        <img
-          src={image}
-          alt="Hero"
-          className="w-full h-auto max-h-[500px] object-cover"
-        />
+        <Slider {...sliderSettings}>
+          {[image1, image2, image3, image6, image4, image7].map(
+            (img, index) => (
+              <div key={index}>
+                <img
+                  src={img}
+                  alt={`Hero ${index + 1}`}
+                  className="w-full h-auto max-h-[500px] object-cover"
+                />
+              </div>
+            ),
+          )}
+        </Slider>
       </section>
 
       <h2 className="text-3xl font-semibold text-center py-8">
