@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { auth, googleProvider, facebookProvider } from "../auth/firebase";
-import { signInWithPopup, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import {
+  signInWithPopup,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom"; // For navigation
 
 const LoginSignup = ({ setUser }) => {
@@ -31,7 +36,7 @@ const LoginSignup = ({ setUser }) => {
     try {
       // Set persistence to local (keep user logged in after page refresh)
       await setPersistence(auth, browserLocalPersistence);
-      
+
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("User signed in:", user);
@@ -88,7 +93,10 @@ const LoginSignup = ({ setUser }) => {
               <li>Post and manage your ads</li>
               <li>Rate other users</li>
               <li>Favourite ads to check them out later</li>
-              <li>Set alerts for your searches and never miss a new ad in your area</li>
+              <li>
+                Set alerts for your searches and never miss a new ad in your
+                area
+              </li>
             </ul>
           </p>
         </div>

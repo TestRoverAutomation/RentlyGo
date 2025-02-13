@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyByh0NrF4LS04VUkazAyhU-mHqyz0_XaZ0",
@@ -8,7 +12,7 @@ const firebaseConfig = {
   storageBucket: "rentlygo-5d18a.appspot.com",
   messagingSenderId: "534071853565",
   appId: "1:534071853565:web:c300e4a1c66d3d5082d994",
-  measurementId: "G-DHK9EDPB8V"
+  measurementId: "G-DHK9EDPB8V",
 };
 
 // Initialize Firebase

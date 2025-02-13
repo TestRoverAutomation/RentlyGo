@@ -1,41 +1,38 @@
 import React from "react";
-import image from '../images/hero_images/RentlyGo2.jpeg'
+import { Link } from "react-router-dom";
+import image from "../images/hero_images/RentlyGo2.jpeg";
+import {
+  FaHome,
+  FaTshirt,
+  FaLaptop,
+  FaCampground,
+  FaCar,
+  FaTools,
+  FaCouch,
+  FaBox,
+} from "react-icons/fa";
 
-
-// Define the categories and their corresponding icons
 const categories = [
-  {
-    name: "Properties",
-    icon: "🏡",
-  },
+  { name: "Properties", icon: <FaHome />, path: "/properties" },
   {
     name: "Clothing & Accessories",
-    icon: "👗",
+    icon: <FaTshirt />,
+    path: "/clothing-accessories",
   },
   {
     name: "Electronics & Gadgets",
-    icon: "💻",
+    icon: <FaLaptop />,
+    path: "/electronics-gadgets",
   },
   {
     name: "Outdoor & Adventure",
-    icon: "🏕️",
+    icon: <FaCampground />,
+    path: "/outdoor-adventure",
   },
-  {
-    name: "Vehicles",
-    icon: "🚗",
-  },
-  {
-    name: "Tools & Equipment",
-    icon: "🛠️",
-  },
-  {
-    name: "Home & Furniture",
-    icon: "🛋️",
-  },
-  {
-    name: "Miscellaneous",
-    icon: "📦",
-  },
+  { name: "Vehicles", icon: <FaCar />, path: "/vehicles" },
+  { name: "Tools & Equipments", icon: <FaTools />, path: "/tools-equipments" },
+  { name: "Home & Furniture", icon: <FaCouch />, path: "/home-furniture" },
+  { name: "Miscellaneous", icon: <FaBox />, path: "/miscellaneous" },
 ];
 
 const Home = () => {
@@ -44,22 +41,23 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <img
-          src={image} // Adjust the path as needed
+          src={image}
           alt="Hero"
-          className="w-full h-auto max-h-[500px] object-cover" // Changed to object-cover
+          className="w-full h-auto max-h-[500px] object-cover"
         />
       </section>
 
-      <h2 className="text-3xl font-semibold text-center py-8">Browse Categories</h2>
+      <h2 className="text-3xl font-semibold text-center py-8">
+        Browse Categories
+      </h2>
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 p-4">
         {categories.map((category) => (
-          <div
-            key={category.name}
-            className="border rounded-lg p-4 text-center shadow-md hover:shadow-lg transition bg-white"
-          >
-            <div className="text-4xl mb-2">{category.icon}</div>
-            <h3 className="font-semibold text-lg">{category.name}</h3>
-          </div>
+          <Link to={category.path} key={category.name}>
+            <div className="border rounded-lg p-4 text-center shadow-md hover:shadow-lg transition bg-white cursor-pointer">
+              <div className="text-4xl mb-2">{category.icon}</div>
+              <h3 className="font-semibold text-lg">{category.name}</h3>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
