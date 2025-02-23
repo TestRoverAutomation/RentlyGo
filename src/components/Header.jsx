@@ -86,7 +86,7 @@ const Header = ({ user, setUser }) => {
               </Link>
             )}
             <Link
-              to="/listing"
+              to="/manage-ads"
               className="flex justify-center items-center bg-slate-600 text-white px-4 h-10 rounded-lg hover:bg-slate-700"
             >
               Post
