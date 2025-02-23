@@ -3,6 +3,7 @@ import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { auth, googleProvider, facebookProvider } from "../auth/firebase";
 import {
   signInWithPopup,
+  signOut,
   onAuthStateChanged,
   setPersistence,
   browserLocalPersistence,
@@ -20,12 +21,13 @@ const LoginSignup = ({ setUser }) => {
         setUser(user); // Set the user in the parent component
       } else {
         setUser(null); // Reset user if no one is logged in
+        navigate("/login"); // Ensure the user is on the login page if logged out
       }
     });
 
     // Cleanup the subscription on component unmount
     return () => unsubscribe();
-  }, [setUser]);
+  }, [setUser, navigate]);
 
   const toggleForm = (loginState) => {
     setIsLogin(loginState);
@@ -41,7 +43,7 @@ const LoginSignup = ({ setUser }) => {
       const user = result.user;
       console.log("User signed in:", user);
       setUser(user); // Set the user in the parent component
-      navigate("/manage-ads"); // Redirect to the home page
+      navigate("/manage-ads"); // Redirect to the manage ads page
     } catch (error) {
       console.error("Error during Google sign-in:", error);
     }
@@ -57,9 +59,20 @@ const LoginSignup = ({ setUser }) => {
       const user = result.user;
       console.log("User signed in:", user);
       setUser(user); // Set the user in the parent component
-      navigate("/"); // Redirect to the home page
+      navigate("/manage-ads"); // Redirect to the home page
     } catch (error) {
       console.error("Error during Facebook sign-in:", error);
+    }
+  };
+
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out from Firebase
+      setUser(null); // Reset the user state in the parent component
+      navigate("/login"); // Redirect to login page
+    } catch (error) {
+      console.error("Error during sign out:", error);
     }
   };
 
@@ -124,6 +137,8 @@ const LoginSignup = ({ setUser }) => {
             <FaGoogle className="mr-2" /> Google
           </button>
         </div>
+
+        {/* If user is logged in, show logout button */}
       </div>
     </div>
   );
