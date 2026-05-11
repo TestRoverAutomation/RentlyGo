@@ -1,12 +1,8 @@
-import React from "react";
-
-const Properties = () => {
-  return (
-    <div>
-      <h1>Residential Properties</h1>
-      <h1>Commercial Properties</h1>
-    </div>
-  );
-};
-
-export default Properties;
+import CategoryPage from "../../components/CategoryPage";
+const subs = [
+  { label: "Residential Rentals", path: "/properties/residential-rentals" },
+  { label: "Commercial Rentals", path: "/properties/commercial-rentals" },
+];
+export default function Properties() {
+  return <CategoryPage category="Properties" title="Properties" description="Find residential and commercial spaces to rent." subcategories={subs} />;
+}

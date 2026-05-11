@@ -61,6 +61,8 @@ import Freebies from "./pages/miscellaneous/Freebies";
 import Services from "./pages/miscellaneous/Services";
 import Footer from "./components/Footer";
 import Ads from "./pages/manage/Ads";
+import ListingDetail from "./pages/ListingDetail";
+import SearchResults from "./pages/Search";
 
 const App = () => {
   const [user, setUser] = useState(null); // Global user state
@@ -90,6 +92,8 @@ const App = () => {
         {/* Pass setUser */}
         <Route path="/manage-ads" element={<Ads user={user} />} />
         <Route path="/about" element={<About />} />
+        <Route path="/listing/:id" element={<ListingDetail user={user} />} />
+        <Route path="/search" element={<SearchResults />} />
         {/** Add subcategory routes */}
         <Route path="/properties" element={<Properties />}></Route>
         <Route
@@ -190,7 +194,7 @@ const App = () => {
           path="/home-furniture/kitchen-appliances"
           element={<KitchenApp />}
         />
-        <Route path="miscellaneous" element={<Miscelleneous />} />
+        <Route path="/miscellaneous" element={<Miscelleneous />} />
         <Route path="/miscellaneous/events" element={<Events />} />
         <Route path="/miscellaneous/community" element={<Community />} />
         <Route path="/miscellaneous/services" element={<Services />} />

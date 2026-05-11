@@ -46,7 +46,7 @@ const categories = [
     name: "Tools",
     path: "tools-equipments",
     icon: FaTools,
-    color: "text-yellow-400",
+    color: "text-amber-400",
     subcategories: ["Power Tools", "Builder tools", "Garden tools"],
   },
   {
@@ -73,36 +73,39 @@ const SubNav = () => {
     setActiveCategory(activeCategory === name ? null : name);
 
   return (
-    <nav className="bg-[#0a0a18] border-b border-white/5">
+    <nav className="bg-[#09090f] border-b border-white/5">
 
       {/* ── Desktop nav ── */}
       <div className="hidden md:block max-w-7xl mx-auto px-4">
-        <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-1">
+        <div className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide py-1">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
               <div key={cat.name} className="relative group shrink-0">
-                <button className="flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">
+                <Link
+                  to={`/${cat.path}`}
+                  className="flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:text-white hover:bg-white/[0.04] transition-all whitespace-nowrap"
+                >
                   <Icon className={`text-xs ${cat.color}`} />
                   {cat.name}
-                  <FaChevronDown className="text-[9px] opacity-40 group-hover:opacity-70 transition-opacity" />
-                </button>
+                  <FaChevronDown className="text-[8px] opacity-30 group-hover:opacity-60 transition-opacity" />
+                </Link>
 
                 {/* Dropdown */}
                 <div className="absolute top-full left-0 z-50 hidden group-hover:block pt-2 min-w-[190px]">
-                  <div className="glass-card rounded-xl p-2 shadow-2xl shadow-black/60 border border-white/10 animate-fade-slide-up">
+                  <div className="bg-[#0e0e1a] border border-white/[0.08] rounded-xl p-2 shadow-2xl shadow-black/60 animate-fade-slide-up">
                     <Link
                       to={`/${cat.path}`}
-                      className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-all mb-1 pb-2 border-b border-white/5"
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/[0.04] rounded-lg transition-all mb-1 pb-2 border-b border-white/[0.06]"
                     >
                       <Icon className={`${cat.color} text-xs`} />
-                      View All
+                      View all
                     </Link>
                     {cat.subcategories.map((sub) => (
                       <Link
                         key={sub}
                         to={`/${cat.path}/${sub.toLowerCase().replace(/ /g, "-")}`}
-                        className="flex items-center px-3 py-1.5 text-xs text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                        className="flex items-center px-3 py-1.5 text-xs text-gray-500 hover:text-white hover:bg-white/[0.04] rounded-lg transition-all"
                       >
                         {sub}
                       </Link>
@@ -119,13 +122,13 @@ const SubNav = () => {
       <div className="md:hidden px-4 py-3">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+          className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-sm font-medium"
         >
           {mobileOpen
-            ? <FaTimes className="text-cyan-400" />
+            ? <FaTimes className="text-indigo-400" />
             : <FaBars />
           }
-          <span>{mobileOpen ? "Close Menu" : "Browse Categories"}</span>
+          <span>{mobileOpen ? "Close" : "Browse categories"}</span>
         </button>
 
         {mobileOpen && (
@@ -137,7 +140,7 @@ const SubNav = () => {
                 <div key={cat.name} className="glass-card rounded-xl overflow-hidden">
                   <button
                     onClick={() => toggleCategory(cat.name)}
-                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-400 hover:text-white transition-colors"
                   >
                     <div className="flex items-center gap-2">
                       <Icon className={`text-xs ${cat.color}`} />
@@ -153,16 +156,16 @@ const SubNav = () => {
                       <Link
                         to={`/${cat.path}`}
                         onClick={() => setMobileOpen(false)}
-                        className={`col-span-2 text-xs font-bold ${cat.color} py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all mb-1`}
+                        className={`col-span-2 text-xs font-semibold ${cat.color} py-1.5 px-2 rounded-lg hover:bg-white/[0.04] transition-all mb-1`}
                       >
-                        View All →
+                        View all →
                       </Link>
                       {cat.subcategories.map((sub) => (
                         <Link
                           key={sub}
                           to={`/${cat.path}/${sub.toLowerCase().replace(/ /g, "-")}`}
                           onClick={() => setMobileOpen(false)}
-                          className="text-xs text-gray-500 hover:text-cyan-400 py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all"
+                          className="text-xs text-gray-600 hover:text-gray-200 py-1.5 px-2 rounded-lg hover:bg-white/[0.04] transition-all"
                         >
                           {sub}
                         </Link>

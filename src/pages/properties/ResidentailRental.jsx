@@ -1,7 +1,4 @@
-import React from "react";
-
-const ResidentailRental = () => {
-  return <div>Residentail Rental</div>;
-};
-
-export default ResidentailRental;
+import CategoryPage from "../../components/CategoryPage";
+export default function ResidentialRental() {
+  return <CategoryPage category="Properties" subcategory="Residential Rentals" title="Residential Rentals" description="Houses, flats, rooms and short-stay properties." />;
+}

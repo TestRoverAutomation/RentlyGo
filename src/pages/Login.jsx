@@ -77,68 +77,76 @@ const LoginSignup = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <div className="flex justify-center mb-6 border-b border-gray-300 pb-4">
-          <button
-            onClick={() => toggleForm(true)}
-            className={`w-1/2 py-2 font-semibold ${isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"}`}
-            style={{ backgroundColor: isLogin ? "#e0f7fa" : "transparent" }}
-          >
-            Login
-          </button>
-          <button
-            onClick={() => toggleForm(false)}
-            className={`w-1/2 py-2 font-semibold ${!isLogin ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"}`}
-            style={{ backgroundColor: !isLogin ? "#e0f7fa" : "transparent" }}
-          >
-            Sign Up
-          </button>
+    <div className="min-h-screen flex items-center justify-center bg-[#09090f] px-4 py-16">
+      <div className="w-full max-w-md">
+
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-2.5 mb-10">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg">
+            <span className="text-white text-xs font-black">RG</span>
+          </div>
+          <span className="text-xl font-black tracking-tight text-white">
+            <span className="gradient-text">Rently</span>Go
+          </span>
         </div>
 
-        <div className="text-center mb-6">
-          <h2 className="text-xl font-semibold">Welcome to RentlyGo</h2>
-          <p className="text-sm text-gray-600 mt-2">
-            Sign in or Register to:
-            <ul className="list-disc text-left ml-6 mt-2">
-              <li>Rent items from listed vendors</li>
-              <li>Send and receive messages</li>
-              <li>Post and manage your ads</li>
-              <li>Rate other users</li>
-              <li>Favourite ads to check them out later</li>
-              <li>
-                Set alerts for your searches and never miss a new ad in your
-                area
-              </li>
-            </ul>
+        <div className="glass-card rounded-2xl p-8">
+          {/* Tabs */}
+          <div className="flex mb-7 border-b border-white/[0.08]">
+            <button
+              onClick={() => toggleForm(true)}
+              className={`flex-1 pb-3 text-sm font-semibold transition-colors ${
+                isLogin
+                  ? "text-white border-b-2 border-indigo-500"
+                  : "text-gray-600 hover:text-gray-400"
+              }`}
+            >
+              Sign in
+            </button>
+            <button
+              onClick={() => toggleForm(false)}
+              className={`flex-1 pb-3 text-sm font-semibold transition-colors ${
+                !isLogin
+                  ? "text-white border-b-2 border-indigo-500"
+                  : "text-gray-600 hover:text-gray-400"
+              }`}
+            >
+              Create account
+            </button>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-white font-bold text-lg mb-1">
+              {isLogin ? "Welcome back" : "Get started"}
+            </h2>
+            <p className="text-gray-600 text-sm">
+              {isLogin
+                ? "Sign in to manage your listings and rentals."
+                : "Create a free account to start renting and listing."}
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="flex items-center justify-center gap-2.5 w-full glass-card border border-white/10 hover:border-white/20 text-white py-3 rounded-xl text-sm font-medium transition-all hover:bg-white/[0.04]"
+            >
+              <FaGoogle className="text-sm" /> Continue with Google
+            </button>
+            <button
+              type="button"
+              onClick={handleFacebookSignIn}
+              className="flex items-center justify-center gap-2.5 w-full glass-card border border-white/10 hover:border-white/20 text-white py-3 rounded-xl text-sm font-medium transition-all hover:bg-white/[0.04]"
+            >
+              <FaFacebookF className="text-sm" /> Continue with Facebook
+            </button>
+          </div>
+
+          <p className="text-gray-700 text-xs text-center mt-6">
+            By continuing, you agree to our Terms of Service and Privacy Policy.
           </p>
         </div>
-
-        <hr className="border-t border-gray-300 mb-6" />
-
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          {isLogin ? "Login to RentlyGo" : "Sign up for RentlyGo"}
-        </h2>
-
-        <div className="flex justify-center gap-4 mb-4">
-          <button
-            type="button"
-            onClick={handleFacebookSignIn}
-            className="flex items-center justify-center w-full bg-slate-600 shadow-md text-white py-2 rounded hover:bg-cyan-500 transition duration-200"
-          >
-            <FaFacebookF className="mr-2" /> Facebook
-          </button>
-
-          <button
-            type="button"
-            onClick={handleGoogleSignIn}
-            className="flex items-center justify-center w-full bg-slate-600 shadow-md text-white py-2 rounded hover:bg-cyan-500 transition duration-200"
-          >
-            <FaGoogle className="mr-2" /> Google
-          </button>
-        </div>
-
-        {/* If user is logged in, show logout button */}
       </div>
     </div>
   );

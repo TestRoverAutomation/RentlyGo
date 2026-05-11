@@ -32,7 +32,8 @@ Rules:
 - Be comprehensive — users rely on you not to miss things
 - After build_rental_plan, write a 2-3 sentence friendly summary
 - If location is provided, filter searches by that location
-- Extract dates from the mission if mentioned (format as YYYY-MM-DD)`;
+- Extract dates from the mission if mentioned (format as YYYY-MM-DD)
+- Write all responses in plain conversational prose — no markdown, no asterisks, no headers, no bullet points, no dashes. Just natural sentences.`;
 
 const TOOLS = [
   {
@@ -111,11 +112,11 @@ const TOOLS = [
 async function executeTool(name, input) {
   switch (name) {
     case "search_rentals":
-      return searchRentals(input);
+      return await searchRentals(input);
     case "check_availability":
       return checkAvailability(input);
     case "build_rental_plan":
-      return buildRentalPlan(input);
+      return await buildRentalPlan(input);
     default:
       return { error: `Unknown tool: ${name}` };
   }

@@ -1,7 +1,4 @@
-import React from "react";
-
-const Bags = () => {
-  return <div>Bags</div>;
-};
-
-export default Bags;
+import CategoryPage from "../../components/CategoryPage";
+export default function Bags() {
+  return <CategoryPage category="Clothing & Accessories" subcategory="Bags" title="Bags" description="Designer bags, clutches, backpacks and luggage." />;
+}

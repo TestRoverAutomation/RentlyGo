@@ -1,10 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  FaBolt, FaArrowRight, FaMapMarkerAlt,
+  FaArrowRight, FaMapMarkerAlt,
   FaSpinner, FaCheck, FaTimes, FaRedo,
 } from "react-icons/fa";
-import NeuralCanvas from "./NeuralCanvas";
 import { runMission } from "../services/agentStream";
 
 /* ─── Static data ───────────────────────────────────────── */
@@ -19,9 +18,9 @@ const EXAMPLES = [
 ];
 
 const TOOL_META = {
-  search_rentals:   { icon: "🔍", verb: "Searching" },
-  check_availability: { icon: "📅", verb: "Checking availability" },
-  build_rental_plan:  { icon: "📋", verb: "Building your plan" },
+  search_rentals:     { label: "Searching listings" },
+  check_availability: { label: "Checking availability" },
+  build_rental_plan:  { label: "Building your plan" },
 };
 
 /* ─── Helpers ───────────────────────────────────────────── */
@@ -30,9 +29,9 @@ function toolSummary(event) {
   if (event.status !== "done" || !event.result) return null;
   if (event.name === "search_rentals") {
     const n = event.result.count ?? event.result.listings?.length ?? 0;
-    return `found ${n} listing${n !== 1 ? "s" : ""}`;
+    return `${n} listing${n !== 1 ? "s" : ""} found`;
   }
-  if (event.name === "check_availability") return "all available ✓";
+  if (event.name === "check_availability") return "all available";
   if (event.name === "build_rental_plan") {
     const cost = event.result.plan?.totalCost;
     return cost != null ? `£${cost} total` : "plan ready";
@@ -44,34 +43,40 @@ function toolSummary(event) {
 
 function AgentTimeline({ events }) {
   return (
-    <div className="glass-card rounded-2xl p-5 space-y-3">
-      <div className="text-[10px] font-mono text-gray-600 tracking-widest mb-1">AGENT ACTIVITY</div>
+    <div
+      className="glass-card rounded-2xl p-5 space-y-3"
+      role="log"
+      aria-label="Agent activity"
+      aria-live="polite"
+    >
+      <div className="text-xs font-medium text-gray-500 mb-1 tracking-wide">
+        Working on it
+      </div>
       {events.map((ev, i) => {
-        const meta = TOOL_META[ev.name] || { icon: "⚡", verb: ev.name };
+        const meta = TOOL_META[ev.name] || { label: ev.name };
         const summary = toolSummary(ev);
         return (
           <motion.div
             key={ev.id}
-            initial={{ opacity: 0, x: -12 }}
+            initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.04 }}
             className="flex items-center gap-3 text-sm"
           >
-            <span className="text-base w-6 text-center shrink-0">{meta.icon}</span>
-            <span className="flex-1 text-gray-400">
-              {meta.verb}
-              {ev.status === "running" && (
-                <span className="text-gray-600 ml-1 animate-pulse"> — working…</span>
-              )}
-              {ev.status === "done" && summary && (
-                <span className="text-gray-500 text-xs ml-1">— {summary}</span>
+            <span className="shrink-0 flex items-center justify-center w-5">
+              {ev.status === "running" ? (
+                <FaSpinner className="animate-spin text-indigo-400 text-xs" aria-hidden="true" />
+              ) : (
+                <FaCheck className="text-emerald-400 text-xs" aria-hidden="true" />
               )}
             </span>
-            <span className="shrink-0">
-              {ev.status === "running" ? (
-                <FaSpinner className="animate-spin text-cyan-400/50 text-xs" />
-              ) : (
-                <FaCheck className="text-emerald-400 text-xs" />
+            <span className="flex-1 text-gray-300 text-sm">
+              {meta.label}
+              {ev.status === "running" && (
+                <span className="text-gray-600">…</span>
+              )}
+              {ev.status === "done" && summary && (
+                <span className="text-gray-500 text-xs ml-1.5">— {summary}</span>
               )}
             </span>
           </motion.div>
@@ -84,12 +89,12 @@ function AgentTimeline({ events }) {
 function PlanCard({ item, index }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.06 }}
-      className="glass-card rounded-xl p-4 flex items-start gap-3 hover:border-white/15 transition-all"
+      transition={{ delay: index * 0.05 }}
+      className="glass-card rounded-xl p-4 flex items-start gap-3 hover:border-indigo-400/20 transition-all"
     >
-      <span className="text-2xl shrink-0">{item.emoji}</span>
+      <span className="text-2xl shrink-0 mt-0.5" aria-hidden="true">{item.emoji}</span>
       <div className="flex-1 min-w-0">
         <div className="text-white font-semibold text-sm truncate">{item.name}</div>
         <div className="text-gray-500 text-xs mt-0.5 truncate">
@@ -99,7 +104,7 @@ function PlanCard({ item, index }) {
       </div>
       <div className="text-right shrink-0">
         <div className="text-white font-bold text-sm">£{item.totalForTrip}</div>
-        <div className="text-gray-600 text-[10px]">£{item.price}/day</div>
+        <div className="text-gray-600 text-[11px]">£{item.price}/day</div>
       </div>
     </motion.div>
   );
@@ -108,23 +113,23 @@ function PlanCard({ item, index }) {
 function RentalPlan({ plan, onReset }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       className="space-y-5"
     >
       {/* Plan header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <div className="text-[10px] font-mono text-cyan-400 tracking-widest mb-1">
-            YOUR RENTAL PLAN
+          <div className="text-xs text-indigo-400 font-medium mb-1.5 tracking-wide">
+            Your rental plan
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-white leading-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">
             {plan.title}
           </h2>
           {plan.dates?.start && (
-            <p className="text-gray-500 text-xs mt-1.5">
+            <p className="text-gray-500 text-sm mt-1.5">
               {plan.dates.start}
-              {plan.dates.end ? ` → ${plan.dates.end}` : ""}
+              {plan.dates.end ? ` – ${plan.dates.end}` : ""}
               {" · "}
               {plan.dates.days} day{plan.dates.days !== 1 ? "s" : ""}
             </p>
@@ -132,7 +137,7 @@ function RentalPlan({ plan, onReset }) {
         </div>
         <div className="text-right shrink-0">
           <div className="text-3xl md:text-4xl font-black gradient-text">£{plan.totalCost}</div>
-          <div className="text-gray-600 text-xs">est. total</div>
+          <div className="text-gray-600 text-xs mt-0.5">estimated total</div>
         </div>
       </div>
 
@@ -145,9 +150,9 @@ function RentalPlan({ plan, onReset }) {
 
       {/* Notes */}
       {plan.notes && (
-        <div className="glass-card rounded-xl p-4 text-gray-400 text-sm leading-relaxed">
-          <span className="text-cyan-400/70 font-mono text-[10px] tracking-widest block mb-1">
-            CONCIERGE NOTES
+        <div className="glass-card rounded-xl p-4 text-gray-300 text-sm leading-relaxed">
+          <span className="text-indigo-400 text-xs font-medium block mb-2 tracking-wide">
+            Recommendations
           </span>
           {plan.notes}
         </div>
@@ -155,14 +160,18 @@ function RentalPlan({ plan, onReset }) {
 
       {/* CTAs */}
       <div className="flex gap-3 pt-1">
-        <button className="flex-1 glow-btn bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3.5 rounded-xl text-sm">
-          Book All Items →
+        <button
+          className="flex-1 glow-btn bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold py-3.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-[#09090f]"
+          aria-label="Book all items in this plan"
+        >
+          Book all items →
         </button>
         <button
           onClick={onReset}
-          className="glass-card text-white font-semibold px-5 py-3.5 rounded-xl hover:border-white/20 transition-all text-sm flex items-center gap-2"
+          className="glass-card text-gray-300 hover:text-white font-medium px-5 py-3.5 rounded-xl hover:border-white/20 transition-all text-sm flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-[#09090f]"
+          aria-label="Start a new search"
         >
-          <FaRedo className="text-xs" /> New Mission
+          <FaRedo className="text-xs" aria-hidden="true" /> Start over
         </button>
       </div>
     </motion.div>
@@ -172,7 +181,7 @@ function RentalPlan({ plan, onReset }) {
 /* ─── Main component ────────────────────────────────────── */
 
 export default function MissionPlanner() {
-  const [phase, setPhase] = useState("idle"); // idle | thinking | complete
+  const [phase, setPhase] = useState("idle");
   const [mission, setMission] = useState("");
   const [location, setLocation] = useState("");
   const [events, setEvents] = useState([]);
@@ -181,12 +190,6 @@ export default function MissionPlanner() {
   const [error, setError] = useState(null);
 
   const textareaRef = useRef(null);
-  const bottomRef = useRef(null);
-
-  // Auto-scroll to bottom while agent is working
-  useEffect(() => {
-    if (phase === "thinking") bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [events, agentText, phase]);
 
   const reset = () => {
     setPhase("idle");
@@ -207,6 +210,7 @@ export default function MissionPlanner() {
     setPlan(null);
     setAgentText("");
     setError(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     let accText = "";
 
@@ -256,48 +260,39 @@ export default function MissionPlanner() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050510] text-white overflow-x-hidden">
-      <NeuralCanvas />
+    <div className="relative min-h-screen bg-[#09090f] text-white overflow-x-hidden">
 
-      {/* Ambient orbs */}
-      <div className="orb w-[650px] h-[650px] bg-cyan-500 opacity-[0.04] -top-52 -left-52" />
+      {/* Subtle ambient gradient — no particles */}
       <div
-        className="orb w-[500px] h-[500px] bg-purple-600 opacity-[0.04] -bottom-36 -right-36"
-        style={{ animationDelay: "2s" }}
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.08) 0%, transparent 70%)",
+        }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-16">
-
-        {/* Status pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex justify-center mb-10"
-        >
-          <div className="inline-flex items-center gap-2.5 bg-white/[0.04] border border-white/[0.07] rounded-full px-5 py-2 text-[10px] font-mono text-cyan-400/70 tracking-widest">
-            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-            AI RENTAL CONCIERGE · LIVE
-            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-          </div>
-        </motion.div>
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-16 md:py-24">
 
         {/* Headline — only when idle */}
         <AnimatePresence mode="wait">
           {phase === "idle" && (
             <motion.div
               key="headline"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              className="text-center mb-10"
+              exit={{ opacity: 0, y: -8 }}
+              className="text-center mb-12"
             >
-              <h1 className="font-black tracking-tighter leading-tight text-5xl sm:text-6xl md:text-7xl mb-4">
-                What are you<br />
-                <span className="gradient-text">planning?</span>
+              <div className="inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-full px-4 py-1.5 text-xs text-indigo-300 font-medium mb-8 tracking-wide">
+                AI-powered rental assistant
+              </div>
+              <h1 className="font-black tracking-tight leading-tight text-5xl sm:text-6xl md:text-7xl mb-5">
+                Rent anything,<br />
+                <span className="gradient-text">effortlessly.</span>
               </h1>
-              <p className="text-gray-500 text-sm md:text-base max-w-md mx-auto leading-relaxed">
-                Describe your event, project, or trip. Our AI agent will search local
-                hosts and build your complete rental plan — in real time.
+              <p className="text-gray-400 text-base md:text-lg max-w-lg mx-auto leading-relaxed">
+                Describe your event, project, or trip. Our AI searches local hosts
+                and builds your complete rental plan — in seconds.
               </p>
             </motion.div>
           )}
@@ -305,80 +300,94 @@ export default function MissionPlanner() {
           {phase !== "idle" && (
             <motion.div
               key="working"
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
+              aria-live="polite"
             >
-              <div className="text-[10px] font-mono text-cyan-400/50 tracking-widest">
-                {phase === "thinking" ? "AGENT WORKING…" : "MISSION COMPLETE"}
+              <div className="text-sm font-medium text-gray-500 tracking-wide">
+                {phase === "thinking" ? "Searching…" : "Done"}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Mission input */}
+        {/* Input */}
         <motion.div layout className="mb-6">
-          <div className="concierge-input bg-white/[0.03] border border-white/[0.09] rounded-2xl overflow-hidden focus-within:border-cyan-500/30 transition-all duration-300">
-            <div className="flex items-start gap-3 p-4">
-              <div className="shrink-0 mt-0.5 w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 animate-glow-pulse">
-                <FaBolt className="text-white text-xs" />
+          <div className="concierge-input bg-[#0e0e18] border border-white/[0.10] rounded-2xl overflow-hidden focus-within:border-indigo-500/40 transition-all duration-300">
+            <div className="flex items-start gap-3 p-4 pb-3">
+              <div
+                className="shrink-0 mt-0.5 w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow"
+                aria-hidden="true"
+              >
+                <span className="text-white text-[10px] font-black">RG</span>
               </div>
               <textarea
                 ref={textareaRef}
                 value={mission}
                 onChange={(e) => setMission(e.target.value)}
                 onKeyDown={handleKey}
-                placeholder='Describe your mission… e.g. "Garden party for 50 people in Manchester next weekend, budget £400"'
+                placeholder='Describe what you need… e.g. "Garden party for 50 people in Manchester next weekend, budget £400"'
                 rows={phase === "idle" ? 3 : 2}
                 disabled={phase === "thinking"}
+                aria-label="Describe your rental needs"
+                aria-describedby="input-hint"
                 className="bg-transparent flex-1 text-white placeholder-gray-600 focus:outline-none text-sm md:text-base resize-none w-full leading-relaxed"
               />
             </div>
-            <div className="flex items-center justify-between px-4 pb-3 gap-3 border-t border-white/[0.04]">
+            <div className="flex items-center justify-between px-4 pb-3.5 gap-3 border-t border-white/[0.06] pt-3">
               <div className="flex items-center gap-2 flex-1">
-                <FaMapMarkerAlt className="text-gray-700 text-xs shrink-0" />
+                <FaMapMarkerAlt className="text-gray-600 text-xs shrink-0" aria-hidden="true" />
                 <input
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Location (optional)"
                   disabled={phase === "thinking"}
-                  className="bg-transparent text-xs text-gray-500 placeholder-gray-700 focus:outline-none flex-1"
+                  aria-label="Location"
+                  className="bg-transparent text-sm text-gray-300 placeholder-gray-600 focus:outline-none flex-1"
                 />
               </div>
               <button
                 onClick={() => submit()}
                 disabled={!mission.trim() || phase === "thinking"}
-                className="shrink-0 glow-btn bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 transition-all"
+                aria-label={phase === "thinking" ? "Searching, please wait" : "Find rentals"}
+                className="shrink-0 glow-btn bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-[#09090f]"
               >
                 {phase === "thinking" ? (
                   <>
-                    Planning <FaSpinner className="animate-spin text-xs" />
+                    Searching <FaSpinner className="animate-spin text-xs" aria-hidden="true" />
                   </>
                 ) : (
                   <>
-                    Plan Mission <FaArrowRight className="text-xs" />
+                    Find rentals <FaArrowRight className="text-xs" aria-hidden="true" />
                   </>
                 )}
               </button>
             </div>
           </div>
+          <p id="input-hint" className="text-gray-600 text-xs mt-2 px-1">
+            Press Enter to search · Shift+Enter for a new line
+          </p>
         </motion.div>
 
-        {/* Example missions */}
+        {/* Example prompts */}
         <AnimatePresence>
           {phase === "idle" && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex flex-wrap gap-2 justify-center mb-8"
+              className="flex flex-wrap gap-2 justify-center mb-10"
+              role="list"
+              aria-label="Example searches"
             >
               {EXAMPLES.map((ex) => (
                 <button
                   key={ex}
+                  role="listitem"
                   onClick={() => { setMission(ex); submit(ex); }}
-                  className="text-xs px-3 py-1.5 rounded-full border border-white/[0.07] text-gray-600 hover:text-cyan-300 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all"
+                  className="text-xs px-3 py-1.5 rounded-full border border-white/[0.10] text-gray-500 hover:text-gray-200 hover:border-white/25 hover:bg-white/[0.03] transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 >
                   {ex.length > 55 ? ex.slice(0, 55) + "…" : ex}
                 </button>
@@ -391,15 +400,20 @@ export default function MissionPlanner() {
         <AnimatePresence>
           {error && (
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="glass-card rounded-xl p-4 mb-6 text-red-400 text-sm flex items-center gap-2"
+              role="alert"
+              className="glass-card rounded-xl p-4 mb-6 text-red-300 text-sm flex items-center gap-3 border border-red-500/20"
             >
-              <FaTimes />
+              <FaTimes className="shrink-0 text-red-400 text-xs" aria-hidden="true" />
               <span className="flex-1">{error}</span>
-              <button onClick={reset} className="text-gray-600 hover:text-white">
-                <FaTimes />
+              <button
+                onClick={reset}
+                aria-label="Dismiss error"
+                className="text-gray-500 hover:text-white focus:outline-none rounded p-0.5"
+              >
+                <FaTimes aria-hidden="true" />
               </button>
             </motion.div>
           )}
@@ -409,7 +423,7 @@ export default function MissionPlanner() {
         <AnimatePresence>
           {events.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               className="mb-6"
             >
@@ -424,15 +438,20 @@ export default function MissionPlanner() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="mb-6 text-gray-400 text-sm leading-relaxed glass-card rounded-xl p-4"
+              className="mb-6 glass-card rounded-xl p-5"
             >
-              <span className="text-[10px] font-mono text-purple-400/60 tracking-widest block mb-2">
-                CONCIERGE
+              <span className="text-xs text-indigo-400 font-medium block mb-2.5 tracking-wide">
+                Assistant
               </span>
-              {agentText}
-              {phase === "thinking" && (
-                <span className="inline-block w-1.5 h-4 bg-cyan-400/60 ml-0.5 animate-pulse align-middle" />
-              )}
+              <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                {agentText}
+                {phase === "thinking" && (
+                  <span
+                    className="inline-block w-1.5 h-4 bg-indigo-400 ml-0.5 animate-pulse align-middle rounded-sm opacity-80"
+                    aria-hidden="true"
+                  />
+                )}
+              </p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -441,7 +460,7 @@ export default function MissionPlanner() {
         <AnimatePresence>
           {plan && (
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
             >
               <RentalPlan plan={plan} onReset={reset} />
@@ -449,7 +468,6 @@ export default function MissionPlanner() {
           )}
         </AnimatePresence>
 
-        <div ref={bottomRef} />
       </div>
     </div>
   );
