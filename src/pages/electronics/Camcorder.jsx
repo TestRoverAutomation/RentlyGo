@@ -1,7 +1,4 @@
-import React from "react";
-
-const Camcorder = () => {
-  return <div>Camcorder</div>;
-};
-
-export default Camcorder;
+import CategoryPage from "../../components/CategoryPage";
+export default function Camcorder() {
+  return <CategoryPage category="Electronics & Gadgets" subcategory="Camcorders" title="Camcorders" description="Video cameras for events, weddings and productions." />;
+}

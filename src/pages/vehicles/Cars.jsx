@@ -1,7 +1,4 @@
-import React from "react";
-
-const Cars = () => {
-  return <div>Cars</div>;
-};
-
-export default Cars;
+import CategoryPage from "../../components/CategoryPage";
+export default function Cars() {
+  return <CategoryPage category="Vehicles" subcategory="Cars" title="Cars" description="Hatchbacks, saloons, SUVs and electric vehicles." />;
+}

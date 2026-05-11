@@ -1,67 +1,77 @@
-import React from "react";
+import MissionPlanner from "../components/MissionPlanner";
 import { Link } from "react-router-dom";
-import image from "../images/hero_images/RentlyGo2.jpeg";
+import { motion } from "framer-motion";
 import {
-  FaHome,
-  FaTshirt,
-  FaLaptop,
-  FaCampground,
-  FaCar,
-  FaTools,
-  FaCouch,
-  FaBox,
+  FaHome, FaTshirt, FaLaptop, FaCampground,
+  FaCar, FaTools, FaCouch, FaBox, FaArrowRight,
 } from "react-icons/fa";
 
 const categories = [
-  { name: "Properties", icon: <FaHome />, path: "/properties" },
-  {
-    name: "Clothing & Accessories",
-    icon: <FaTshirt />,
-    path: "/clothing-accessories",
-  },
-  {
-    name: "Electronics & Gadgets",
-    icon: <FaLaptop />,
-    path: "/electronics-gadgets",
-  },
-  {
-    name: "Outdoor & Adventure",
-    icon: <FaCampground />,
-    path: "/outdoor-adventure",
-  },
-  { name: "Vehicles", icon: <FaCar />, path: "/vehicles" },
-  { name: "Tools & Equipments", icon: <FaTools />, path: "/tools-equipments" },
-  { name: "Home & Furniture", icon: <FaCouch />, path: "/home-furniture" },
-  { name: "Miscellaneous", icon: <FaBox />, path: "/miscellaneous" },
+  { name: "Properties",      icon: FaHome,       path: "/properties",           color: "text-blue-400",   bg: "bg-blue-500/10",   border: "hover:border-blue-400/30",   desc: "Residential & commercial" },
+  { name: "Clothing",        icon: FaTshirt,     path: "/clothing-accessories", color: "text-pink-400",   bg: "bg-pink-500/10",   border: "hover:border-pink-400/30",   desc: "Fashion for every occasion" },
+  { name: "Electronics",     icon: FaLaptop,     path: "/electronics-gadgets",  color: "text-violet-400", bg: "bg-violet-500/10", border: "hover:border-violet-400/30", desc: "Tech & professional gear" },
+  { name: "Outdoor",         icon: FaCampground, path: "/outdoor-adventure",    color: "text-emerald-400",bg: "bg-emerald-500/10",border: "hover:border-emerald-400/30",desc: "Explore the outdoors" },
+  { name: "Vehicles",        icon: FaCar,        path: "/vehicles",             color: "text-orange-400", bg: "bg-orange-500/10", border: "hover:border-orange-400/30", desc: "Cars, bikes & more" },
+  { name: "Tools",           icon: FaTools,      path: "/tools-equipments",     color: "text-amber-400",  bg: "bg-amber-500/10",  border: "hover:border-amber-400/30",  desc: "DIY & professional" },
+  { name: "Home & Furniture",icon: FaCouch,      path: "/home-furniture",       color: "text-teal-400",   bg: "bg-teal-500/10",   border: "hover:border-teal-400/30",   desc: "Comfort & style" },
+  { name: "Miscellaneous",   icon: FaBox,        path: "/miscellaneous",        color: "text-indigo-400", bg: "bg-indigo-500/10", border: "hover:border-indigo-400/30", desc: "Events, jobs & more" },
 ];
 
-const Home = () => {
+export default function Home() {
   return (
-    <div className="bg-gray-100">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <img
-          src={image}
-          alt="Hero"
-          className="w-full h-auto max-h-[500px] object-cover"
-        />
+    <div className="bg-[#09090f] text-white min-h-screen overflow-x-hidden">
+
+      {/* AI Rental Assistant hero */}
+      <MissionPlanner />
+
+      {/* Browse categories */}
+      <section className="py-20 px-4 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              Browse by category
+            </h2>
+            <p className="text-gray-500 text-sm mt-1.5">Every category, one platform.</p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {categories.map(({ name, icon: Icon, path, color, bg, border, desc }, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.04 }}
+              >
+                <Link to={path} className="block h-full">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.15 }}
+                    className={`glass-card rounded-xl p-4 h-full group relative overflow-hidden flex flex-col gap-3 transition-all ${border}`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg ${bg} flex items-center justify-center`}>
+                      <Icon className={`${color} text-sm`} />
+                    </div>
+                    <div>
+                      <div className="text-white font-semibold text-sm">{name}</div>
+                      <div className="text-gray-500 text-xs mt-0.5">{desc}</div>
+                    </div>
+                    <FaArrowRight
+                      className={`text-[9px] ${color} opacity-0 group-hover:opacity-60 transition-opacity mt-auto`}
+                    />
+                  </motion.div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <h2 className="text-3xl font-semibold text-center py-8">
-        Browse Categories
-      </h2>
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 p-4">
-        {categories.map((category) => (
-          <Link to={category.path} key={category.name}>
-            <div className="border rounded-lg p-4 text-center shadow-md hover:shadow-lg transition bg-white cursor-pointer">
-              <div className="text-4xl mb-2">{category.icon}</div>
-              <h3 className="font-semibold text-lg">{category.name}</h3>
-            </div>
-          </Link>
-        ))}
-      </div>
     </div>
   );
-};
-
-export default Home;
+}

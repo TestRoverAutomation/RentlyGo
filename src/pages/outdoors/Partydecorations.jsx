@@ -1,7 +1,4 @@
-import React from "react";
-
-const Partydecorations = () => {
-  return <div>Partydecorations</div>;
-};
-
-export default Partydecorations;
+import CategoryPage from "../../components/CategoryPage";
+export default function Partydecorations() {
+  return <CategoryPage category="Outdoor & Adventure" subcategory="Party Decoration" title="Party Decorations" description="Balloons, banners, backdrops and everything in between." />;
+}

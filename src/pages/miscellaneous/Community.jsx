@@ -1,7 +1,4 @@
-import React from "react";
-
-const Community = () => {
-  return <div>Community</div>;
-};
-
-export default Community;
+import CategoryPage from "../../components/CategoryPage";
+export default function Community() {
+  return <CategoryPage category="Miscellaneous" subcategory="Community" title="Community" description="Community items and shared resources." />;
+}
