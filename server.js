@@ -123,10 +123,11 @@ async function executeTool(name, input) {
 }
 
 app.post("/api/agent", async (req, res) => {
-  const { mission, location } = req.body;
+  const { conversationHistory = [], location } = req.body;
 
-  if (!mission?.trim()) {
-    return res.status(400).json({ error: "Mission is required" });
+  const lastMsg = conversationHistory[conversationHistory.length - 1];
+  if (!lastMsg?.content?.trim()) {
+    return res.status(400).json({ error: "Message is required" });
   }
 
   res.setHeader("Content-Type", "text/event-stream");
@@ -138,8 +139,13 @@ app.post("/api/agent", async (req, res) => {
     res.write(`data: ${JSON.stringify({ type, ...data })}\n\n`);
   };
 
-  const userMessage = mission + (location ? `. Location: ${location}` : "");
-  const messages = [{ role: "user", content: userMessage }];
+  // Inject location into the last user message if provided
+  const messages = conversationHistory.map((msg, i) => {
+    if (i === conversationHistory.length - 1 && msg.role === "user" && location) {
+      return { role: "user", content: msg.content + `. Location: ${location}` };
+    }
+    return { role: msg.role, content: msg.content };
+  });
 
   try {
     let iterations = 0;

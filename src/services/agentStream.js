@@ -2,11 +2,11 @@
  * Connects to /api/agent via SSE and calls onEvent for each streamed event.
  * Returns a promise that resolves when the stream ends.
  */
-export async function runMission({ mission, location, onEvent }) {
+export async function runMission({ conversationHistory, location, onEvent }) {
   const response = await fetch("/api/agent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mission, location }),
+    body: JSON.stringify({ conversationHistory, location }),
   });
 
   if (!response.ok) {
