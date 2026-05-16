@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { auth, googleProvider, facebookProvider } from "../auth/firebase";
+import SEO from "../components/SEO";
 import {
   signInWithPopup,
   signOut,
@@ -13,6 +14,7 @@ import { useNavigate } from "react-router-dom"; // For navigation
 const LoginSignup = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  // noindex — auth pages should not appear in search results
 
   // Monitor auth state changes and set user
   useEffect(() => {
@@ -78,6 +80,7 @@ const LoginSignup = ({ setUser }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#09090f] px-4 py-16">
+      <SEO title="Sign In" description="Sign in or create a free RentlyGo account to post ads and contact hosts." noindex={true} />
       <div className="w-full max-w-md">
 
         {/* Logo */}

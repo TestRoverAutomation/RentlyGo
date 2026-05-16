@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowLeft, FaMapMarkerAlt, FaStar, FaPhone, FaEnvelope, FaSpinner } from "react-icons/fa";
 import { getListingById } from "../services/firestore";
+import SEO from "../components/SEO";
 
 export default function ListingDetail({ user }) {
   const { id } = useParams();
@@ -37,8 +38,55 @@ export default function ListingDetail({ user }) {
 
   const total = (listing.price * days).toFixed(2);
 
+  const seoTitle = `Rent ${listing.title} in ${listing.location}`;
+  const seoDesc  = `Hire ${listing.title} in ${listing.location} for £${listing.price}/day. ${listing.description ? listing.description.slice(0, 120) : ""} Listed by ${listing.hostName} on RentlyGo.`;
+  const seoImage = listing.photos?.[0] || undefined;
+  const seoKeywords = [
+    `rent ${listing.title}`,
+    `hire ${listing.subcategory || listing.category}`,
+    `${listing.category} rental ${listing.location}`,
+    ...(listing.tags || []),
+  ].join(", ");
+
+  const listingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": listing.title,
+    "description": listing.description || "",
+    "image": listing.photos?.[0] || "",
+    "category": listing.category,
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "GBP",
+      "price": listing.price,
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": listing.price,
+        "priceCurrency": "GBP",
+        "unitText": "DAY",
+      },
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Person", "name": listing.hostName },
+      "areaServed": listing.location,
+    },
+    "aggregateRating": listing.reviews > 0 ? {
+      "@type": "AggregateRating",
+      "ratingValue": listing.hostRating,
+      "reviewCount": listing.reviews,
+    } : undefined,
+  };
+
   return (
     <div className="bg-[#09090f] text-white min-h-screen px-4 py-10">
+      <SEO
+        title={seoTitle}
+        description={seoDesc}
+        keywords={seoKeywords}
+        image={seoImage}
+        url={`/listing/${listing.id}`}
+        type="product"
+        jsonLd={listingJsonLd}
+      />
       <div className="max-w-4xl mx-auto">
         <button
           onClick={() => navigate(-1)}

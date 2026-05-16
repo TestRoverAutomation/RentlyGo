@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaRocket, FaShieldAlt, FaUsers, FaArrowRight } from "react-icons/fa";
+import SEO from "../components/SEO";
 
 const values = [
   { icon: FaRocket,    title: "AI-first",  desc: "The world's first AI-powered rental assistant. Describe what you need — it finds it, plans it, and prices it in seconds.", bg: "bg-indigo-500/10", color: "text-indigo-400" },
@@ -11,6 +12,12 @@ const values = [
 export default function About() {
   return (
     <div className="bg-[#09090f] text-white min-h-screen">
+      <SEO
+        title="About RentlyGo"
+        description="RentlyGo is the UK's first AI-powered peer-to-peer rental marketplace. Rent or hire anything from people near you — properties, vehicles, electronics, tools, clothing and outdoor gear."
+        keywords="about RentlyGo, peer to peer rental UK, AI rental platform, rental marketplace UK"
+        url="/about"
+      />
       {/* Hero */}
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>

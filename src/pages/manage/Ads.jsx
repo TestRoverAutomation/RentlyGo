@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaPlus, FaTimes, FaSpinner, FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
 import PostAd from "./PostAds";
 import { getUserListings, deleteListing, toggleListingActive } from "../../services/firestore";
+import SEO from "../../components/SEO";
 
 export default function Ads({ user }) {
   const [showForm, setShowForm] = useState(false);
@@ -39,6 +40,7 @@ export default function Ads({ user }) {
 
   return (
     <div className="bg-[#09090f] text-white min-h-screen px-4 py-10">
+      <SEO title="My Ads" description="Manage your rental listings on RentlyGo." noindex={true} />
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}

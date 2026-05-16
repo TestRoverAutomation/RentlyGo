@@ -2,9 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RentlyGo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Default SEO (overridden per-page by react-helmet-async) -->
+    <title>RentlyGo – Rent Anything Near You</title>
+    <meta name="description" content="RentlyGo is the UK's peer-to-peer rental marketplace. Rent or hire anything — properties, vehicles, electronics, outdoor gear, tools, clothing and more — from people near you." />
+    <meta name="keywords" content="rent, hire, peer to peer rental, UK rental marketplace, rent items near me, rental platform" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#09090f" />
+
+    <!-- Open Graph defaults -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:site_name"   content="RentlyGo" />
+    <meta property="og:title"       content="RentlyGo – Rent Anything Near You" />
+    <meta property="og:description" content="RentlyGo is the UK's peer-to-peer rental marketplace. Rent properties, vehicles, electronics, tools, clothing and more from people near you." />
+    <meta property="og:image"       content="https://rentlygo.netlify.app/og-default.jpg" />
+    <meta property="og:url"         content="https://rentlygo.netlify.app" />
+
+    <!-- Twitter Card defaults -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="RentlyGo – Rent Anything Near You" />
+    <meta name="twitter:description" content="The UK's peer-to-peer rental marketplace. Rent or list anything." />
+    <meta name="twitter:image"       content="https://rentlygo.netlify.app/og-default.jpg" />
+
+    <!-- Organisation JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "RentlyGo",
+      "url": "https://rentlygo.netlify.app",
+      "logo": "https://rentlygo.netlify.app/favicon.svg",
+      "description": "UK peer-to-peer rental marketplace for properties, vehicles, electronics, tools, clothing and more.",
+      "sameAs": []
+    }
+    </script>
+
+    <!-- WebSite + Sitelinks Search Box JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "RentlyGo",
+      "url": "https://rentlygo.netlify.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://rentlygo.netlify.app/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

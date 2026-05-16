@@ -1,10 +1,8 @@
-import { listings as mockListings } from "./mockListings.js";
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore, collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
 import dotenv from "dotenv";
 dotenv.config();
 
-// Initialise Firebase (only once — guard against hot-reload double init)
 const firebaseConfig = {
   apiKey: "AIzaSyByh0NrF4LS04VUkazAyhU-mHqyz0_XaZ0",
   authDomain: "rentlygo-5d18a.firebaseapp.com",
@@ -85,12 +83,9 @@ function scoreListings(items, { keywords, category, location, max_price_per_day 
 }
 
 export async function searchRentals(input) {
-  const firestoreItems = await fetchFirestoreListings();
-  // Normalize mock listings to agent shape (title → name, hostName → host)
-  const normalizedMock = mockListings.map((l) => ({ ...l, name: l.title, host: l.hostName }));
-  const pool = firestoreItems.length > 0 ? firestoreItems : normalizedMock;
-  const scored = scoreListings(pool, input);
-  return { count: scored.length, listings: scored, source: firestoreItems.length > 0 ? "live" : "demo" };
+  const items = await fetchFirestoreListings();
+  const scored = scoreListings(items, input);
+  return { count: scored.length, listings: scored };
 }
 
 export function checkAvailability({ listing_ids, start_date, end_date }) {
@@ -102,12 +97,10 @@ export function checkAvailability({ listing_ids, start_date, end_date }) {
 }
 
 export async function buildRentalPlan({ listing_ids, start_date, end_date, mission_title, notes }) {
-  const firestoreItems = await fetchFirestoreListings();
-  const normalizedMock = mockListings.map((l) => ({ ...l, name: l.title, host: l.hostName }));
-  const pool = firestoreItems.length > 0 ? firestoreItems : normalizedMock;
+  const items = await fetchFirestoreListings();
 
   const planItems = (listing_ids || [])
-    .map((id) => pool.find((l) => l.id === id))
+    .map((id) => items.find((l) => l.id === id))
     .filter(Boolean);
 
   const days =

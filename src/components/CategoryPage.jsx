@@ -1,15 +1,34 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowLeft, FaSpinner, FaPlus } from "react-icons/fa";
 import { getListingsByCategory } from "../services/firestore";
 import ListingCard from "./ListingCard";
+import SEO from "./SEO";
+
+const CATEGORY_KEYWORDS = {
+  "Properties":              "property rental UK, residential rental, commercial rental, rent house, rent flat, rent office space",
+  "Clothing & Accessories":  "clothing hire UK, outfit rental, dress hire, costume rental, fashion rental, party outfit hire",
+  "Electronics & Gadgets":   "electronics rental UK, camera hire, laptop rental, projector hire, sound system rental, gadget hire",
+  "Outdoor & Adventure":     "outdoor equipment hire UK, camping gear rental, marquee hire, bouncy castle hire, garden furniture rental",
+  "Vehicles":                "vehicle rental UK, car hire, van rental, caravan hire, motorbike rental, scooter hire, e-bike rental",
+  "Tools & Equipment":       "tool hire UK, power tool rental, builder tools hire, garden tool rental, DIY equipment hire",
+  "Home & Furniture":        "furniture rental UK, kitchen appliance hire, home furnishing rental, furniture hire",
+  "Miscellaneous":           "event hire UK, community rental, services hire, job equipment rental, freebies UK",
+};
 
 export default function CategoryPage({ category, subcategory = null, title, description, subcategories = [] }) {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const seoTitle    = subcategory ? `${subcategory} Rental` : `${title} Rental`;
+  const seoDesc     = subcategory
+    ? `Rent or hire ${subcategory.toLowerCase()} from people near you on RentlyGo. Browse listings, compare prices and contact hosts directly.`
+    : `${description || `Browse ${title} rentals on RentlyGo.`} Find the best deals from local hosts and hire what you need today.`;
+  const seoKeywords = `${seoTitle.toLowerCase()}, hire ${title.toLowerCase()}, rent ${title.toLowerCase()} near me, ${CATEGORY_KEYWORDS[category] || "rental UK"}`;
 
   useEffect(() => {
     setLoading(true);
@@ -22,6 +41,12 @@ export default function CategoryPage({ category, subcategory = null, title, desc
 
   return (
     <div className="bg-[#09090f] text-white min-h-screen px-4 py-10">
+      <SEO
+        title={seoTitle}
+        description={seoDesc}
+        keywords={seoKeywords}
+        url={pathname}
+      />
       <div className="max-w-6xl mx-auto">
 
         {/* Back + breadcrumb */}

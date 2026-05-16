@@ -1,4 +1,5 @@
 import MissionPlanner from "../components/MissionPlanner";
+import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -17,9 +18,24 @@ const categories = [
   { name: "Miscellaneous",   icon: FaBox,        path: "/miscellaneous",        color: "text-indigo-400", bg: "bg-indigo-500/10", border: "hover:border-indigo-400/30", desc: "Events, jobs & more" },
 ];
 
+const HOME_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "RentlyGo – Rent Anything Near You",
+  "description": "AI-powered peer-to-peer rental marketplace. Rent properties, vehicles, electronics, tools, clothing, outdoor gear and more from people near you across the UK.",
+  "url": "https://rentlygo.netlify.app",
+};
+
 export default function Home() {
   return (
     <div className="bg-[#09090f] text-white min-h-screen overflow-x-hidden">
+      <SEO
+        title="Rent Anything Near You"
+        description="RentlyGo is the UK's AI-powered peer-to-peer rental marketplace. Describe what you need and our AI assistant finds it, plans it, and prices it instantly. Rent properties, vehicles, electronics, tools, clothing and outdoor gear."
+        keywords="rent items UK, peer to peer rental, hire near me, rental marketplace, rent anything, AI rental assistant, rent property UK, vehicle hire, tool hire, electronics rental"
+        url="/"
+        jsonLd={HOME_JSONLD}
+      />
 
       {/* AI Rental Assistant hero */}
       <MissionPlanner />

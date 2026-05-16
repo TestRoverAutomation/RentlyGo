@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaSpinner, FaArrowLeft } from "react-icons/fa";
 import { searchListings } from "../services/firestore";
 import ListingCard from "../components/ListingCard";
+import SEO from "../components/SEO";
 
 export default function SearchResults() {
   const [params] = useSearchParams();
@@ -22,8 +23,14 @@ export default function SearchResults() {
       .finally(() => setLoading(false));
   }, [q, location]);
 
+  const searchTitle = q ? `Search: "${q}"${location ? ` in ${location}` : ""}` : "Search Rentals";
+  const searchDesc  = q
+    ? `Find ${q} rentals${location ? ` in ${location}` : ""} on RentlyGo. Browse listings from local hosts and hire what you need today.`
+    : "Search thousands of rental listings across the UK on RentlyGo.";
+
   return (
     <div className="bg-[#09090f] text-white min-h-screen px-4 py-10">
+      <SEO title={searchTitle} description={searchDesc} keywords={q ? `rent ${q}, hire ${q}, ${q} rental UK` : "rental search UK"} noindex={!!q} />
       <div className="max-w-6xl mx-auto">
 
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
